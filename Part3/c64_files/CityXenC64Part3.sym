@@ -1,0 +1,6 @@
+.label colorjump=$946
+.label title_loop=$8cc
+.label begin_code=$810
+.label sinetable=$95f
+.label colortable=$952
+.label cityxen_sprites=$b00
