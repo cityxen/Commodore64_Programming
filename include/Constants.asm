@@ -22,43 +22,43 @@
 .const SPRITE_7_POINTER     = $7FF
 //////////////////////////////////////////////////////////////////////////////////////
 // VIC CONSTANTS
-.const SPRITE_0_X           = $D000 // SP0X Sprite 0 Horizontal Position
-.const SPRITE_0_Y           = $D001 // SP0Y Sprite 0 Vertical Position
-.const SPRITE_1_X           = $D002 // SP1X Sprite 1 Horizontal Position
-.const SPRITE_1_Y           = $D003 // SP1Y Sprite 1 Vertical Position
-.const SPRITE_2_X           = $D004 // SP2X Sprite 2 Horizontal Position
-.const SPRITE_2_Y           = $D005 // SP2Y Sprite 2 Vertical Position
-.const SPRITE_3_X           = $D006 // SP3X Sprite 3 Horizontal Position
-.const SPRITE_3_Y           = $D007 // SP3Y Sprite 3 Vertical Position
-.const SPRITE_4_X           = $D008 // SP4X Sprite 4 Horizontal Position
-.const SPRITE_4_Y           = $D009 // SP4Y Sprite 4 Vertical Position
-.const SPRITE_5_X           = $D00A // SP5X Sprite 5 Horizontal Position
-.const SPRITE_5_Y           = $D00B // SP5Y Sprite 5 Vertical Position
-.const SPRITE_6_X           = $D00C // SP6X Sprite 6 Horizontal Position
-.const SPRITE_6_Y           = $D00D // SP6Y Sprite 6 Vertical Position
-.const SPRITE_7_X           = $D00E // SP7X Sprite 7 Horizontal Position
-.const SPRITE_7_Y           = $D00F // SP7Y Sprite 7 Vertical Position
-.const SPRITE_MSB_X         = $D010 // Most Significant Bits of Sprites 0-7 Horizontal Position
-.const VIC_CONTROL_REG_1    = $D011 // RST8 ECM BMM DEN RSEL [ YSCROLL ]
-.const VIC_RASTER_COUNTER   = $D012
-.const VIC_LIGHT_PEN_X      = $D013
-.const VIC_LIGHT_PEN_Y      = $D014
-.const SPRITE_ENABLE        = $D015
-.const VIC_CONTROL_REG_2    = $D016 // - - RES MCM CSEL [ XSCROLL ]
-.const SPRITE_EXPAND_Y      = $D017 
-.const VIC_MEM_POINTERS     = $D018 // VM13 VM12 VM11 VM10 CB13 CB12 CB11 -
-.const VIC_INTERRUPT_REG    = $D019 // IRQ - - - ILP IMMC IMBC IRST
-.const VIC_INTERRUPT_ENABLE = $D01A // - - - - ELP EMMC EMBC ERST
-.const SPRITE_PRIORITY      = $D01B
-.const SPRITE_MULTICOLOR    = $D01C
-.const SPRITE_EXPAND_X      = $D01D
-.const SPRITE_COLLISION_SPR = $D01E
-.const SPRITE_COLLISION_DATA= $D01F
-.const BORDER_COLOR         = $D020
-.const BACKGROUND_COLOR     = $D021
-.const BACKGROUND_COLOR_1   = $D022
-.const BACKGROUND_COLOR_2   = $D023
-.const BACKGROUND_COLOR_3   = $D024
+.const SPRITE_0_X           = $D000 // 53248 // SP0X Sprite 0 Horizontal Position
+.const SPRITE_0_Y           = $D001 // 53249 // SP0Y Sprite 0 Vertical Position
+.const SPRITE_1_X           = $D002 // 53250 // SP1X Sprite 1 Horizontal Position
+.const SPRITE_1_Y           = $D003 // 53251 // SP1Y Sprite 1 Vertical Position
+.const SPRITE_2_X           = $D004 // 53252 // SP2X Sprite 2 Horizontal Position
+.const SPRITE_2_Y           = $D005 // 53253 // SP2Y Sprite 2 Vertical Position
+.const SPRITE_3_X           = $D006 // 53254 // SP3X Sprite 3 Horizontal Position
+.const SPRITE_3_Y           = $D007 // 53255 // SP3Y Sprite 3 Vertical Position
+.const SPRITE_4_X           = $D008 // 53256 // SP4X Sprite 4 Horizontal Position
+.const SPRITE_4_Y           = $D009 // 53257 // SP4Y Sprite 4 Vertical Position
+.const SPRITE_5_X           = $D00A // 53258 // SP5X Sprite 5 Horizontal Position
+.const SPRITE_5_Y           = $D00B // 53259 // SP5Y Sprite 5 Vertical Position
+.const SPRITE_6_X           = $D00C // 53260 // SP6X Sprite 6 Horizontal Position
+.const SPRITE_6_Y           = $D00D // 53261 // SP6Y Sprite 6 Vertical Position
+.const SPRITE_7_X           = $D00E // 53262 // SP7X Sprite 7 Horizontal Position
+.const SPRITE_7_Y           = $D00F // 53263 // SP7Y Sprite 7 Vertical Position
+.const SPRITE_MSB_X         = $D010 // 53264 // Most Significant Bits of Sprites 0-7 Horizontal Position
+.const VIC_CONTROL_REG_1    = $D011 // 53265 // RST8 ECM BMM DEN RSEL [ YSCROLL ]
+.const VIC_RASTER_COUNTER   = $D012 // 53266
+.const VIC_LIGHT_PEN_X      = $D013 // 53267
+.const VIC_LIGHT_PEN_Y      = $D014 // 53268
+.const SPRITE_ENABLE        = $D015 // 53269
+.const VIC_CONTROL_REG_2    = $D016 // 53270 - - RES MCM CSEL [ XSCROLL ]
+.const SPRITE_EXPAND_Y      = $D017 // 53271
+.const VIC_MEM_POINTERS     = $D018 // 53272 VM13 VM12 VM11 VM10 CB13 CB12 CB11 -
+.const VIC_INTERRUPT_REG    = $D019 // 53273 IRQ - - - ILP IMMC IMBC IRST
+.const VIC_INTERRUPT_ENABLE = $D01A // 53274 - - - - ELP EMMC EMBC ERST
+.const SPRITE_PRIORITY      = $D01B // 53275
+.const SPRITE_MULTICOLOR    = $D01C // 53276
+.const SPRITE_EXPAND_X      = $D01D // 53277
+.const SPRITE_COLLISION_SPR = $D01E // 53278
+.const SPRITE_COLLISION_DATA= $D01F // 53279
+.const BORDER_COLOR         = $D020 // 53280
+.const BACKGROUND_COLOR     = $D021 // 53281
+.const BACKGROUND_COLOR_1   = $D022 // 53282
+.const BACKGROUND_COLOR_2   = $D023 // 53283
+.const BACKGROUND_COLOR_3   = $D024 // 53284
 .const SPRITE_MULTICOLOR_0  = $D025
 .const SPRITE_MULTICOLOR_1  = $D026
 .const SPRITE_0_COLOR       = $D027
@@ -154,8 +154,3 @@
 .const KERNAL_SCREEN        = $FFED // Input: – Output: X = Number of columns (40); Y = Number of rows (25) Used registers: X, Y
 .const KERNAL_PLOT          = $FFF0 // Input: Carry: 0 = Restore from input, 1 = Save to output; X = Cursor column (if Carry = 0); Y = Cursor row (if Carry = 0) Output: X = Cursor column (if Carry = 1); Y = Cursor row (if Carry = 1) Used registers: X, Y
 .const KERNAL_IOBASE        = $FFF3 // Input: – Output: X/Y = CIA #1 base address ($DC00) Used registers: X, Y
-
-
-
-
-
