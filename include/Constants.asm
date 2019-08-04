@@ -2,13 +2,14 @@
 // Deadline's C64 Assembly Language Library: Constants
 //////////////////////////////////////////////////////////////////////////////////////
 // MEMORY_CONSTANTS
+.const SECONDARY_ADDRESS    = $B9
+.const DEVICE_NUMBER        = $BA
 .const PNTR                 = $D3
 .const CURSOR_X_POS         = $D3
 .const TBLX                 = $D6
 .const CURSOR_Y_POS         = $D6
 .const VICSCN               = $400
 .const SCREEN_RAM           = $400
-.const CURSOR_SET           = $E510
 .const COLOR_RAM            = $D800
 //////////////////////////////////////////////////////////////////////////////////////
 // SPRITE POINTERS
@@ -105,6 +106,10 @@
 .const SID_OSCILLATOR_V3    = $D41B // (54299) oscillator voice 3 (read only)
 .const SID_ENVELOPE_V3      = $D41C // (54300) envelope voice 3 (read only)
 //////////////////////////////////////////////////////////////////////////////////////
+// User Port Stuff
+.const USER_PORT_DATA       = $DD01 // User Port Data
+.const USER_PORT_DATA_DIR   = $DD03 // User Port Data Direction per bit 1 = talk 0 = listen
+//////////////////////////////////////////////////////////////////////////////////////
 // 1541 Ultimate II Command Interface
 .const UII_CONTROL          = $DF1C // CONTROL REGISTER (WRITE)
 .const UII_STATUS           = $DF1C // STATUS REGISTER (READ) $00
@@ -115,6 +120,29 @@
 //////////////////////////////////////////////////////////////////////////////////////
 // KERNAL SUB ROUTINES
 .const KERNAL_PRINT_HEX     = $BDCD // Print 16 bit number to screen LDX lobyte LDA hibyte
+//////////////////////////////////////////////////////////////////////////////////////
+// KERNAL SCREEN Stuff
+.const CURSOR_SET           = $E510
+.const KERNAL_CLEAR_SCREEN  = $E544 // Clear Screen
+//////////////////////////////////////////////////////////////////////////////////////
+// Serial BUS
+.const SERIAL_TALK          = $ED09 // Send TALK command to serial bus. Input: A = Device number.
+.const SERIAL_LISTEN        = $ED0C // Send LISTEN command to serial bus. Input: A = Device number.
+.const SERIAL_FLUSH         = $ED40 // Flush serial bus output cache, at memory address $0095, to serial bus. Used registers: A.
+.const SERIAL_LISTEN_2      = $EDB9	// Send LISTEN secondary address to serial bus. Input: A = Secondary address.
+.const SERIAL_TALK_2        = $EDC7	// Send TALK secondary address to serial bus. Input: A = Secondary address.
+.const SERIAL_WRITE_BYTE    = $EDDD // Write byte to serial bus. Input: A = Byte to write.
+.const SERIAL_UNTALK        = $EDEF	// Send UNTALK command to serial bus.
+.const SERIAL_UNLISTEN      = $EDFE	// Send UNLISTEN command to serial bus.
+.const SERIAL_READ_BYTE     = $EE13	// Read byte from serial bus. Output: A = Byte read.
+.const SERIAL_CLOCK_OUT_HIGH= $EE85	// Set CLOCK OUT to high.
+.const SERIAL_CLOCK_OUT_LOW = $EE8E	// Set CLOCK OUT to low.
+.const SERIAL_DATA_OUT_HIGH = $EE97	// Set DATA OUT to high.
+.const SERIAL_DATA_OUT_LOW  = $EEA0	// Set DATA OUT to low.
+.const SERIAL_CLOCK_DATA_IN = $EEA9	// Read CLOCK IN and DATA IN. Output: Carry = DATA IN; Negative = CLOCK IN; A = CLOCK IN (in bit #7).
+//////////////////////////////////////////////////////////////////////////////////////
+// KERNAL SUB ROUTINES
+.const KERNAL_WAIT_KEY      = $F142 // Wait for key
 .const KERNAL_SCINIT        = $FF81 // Input: – Output: – Used registers: A, X, Y
 .const KERNAL_IOINIT        = $FF84 // Input: – Output: – Used registers: A, X
 .const KERNAL_RAMTAS        = $FF87 // Input: – Output: – Used registers: A, X, Y
