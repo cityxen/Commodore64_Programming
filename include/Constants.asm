@@ -8,6 +8,7 @@
 .const CURSOR_X_POS         = $D3
 .const TBLX                 = $D6
 .const CURSOR_Y_POS         = $D6
+.const CURSOR_COLOR         = $286
 .const VICSCN               = $400
 .const SCREEN_RAM           = $400
 .const COLOR_RAM            = $D800
