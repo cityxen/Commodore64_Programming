@@ -6,3 +6,5 @@ Part 2: Hello World
 
 Part 3: Sinus Sprites
 
+Part 4: Custom Characters, Smooth Scrolling & Macros
+
