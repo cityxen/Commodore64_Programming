@@ -1,5 +1,7 @@
+//////////////////////////////////////////////////////////////////////
 // CityXen Commodore 64 Programming Series Part 3
-// Bouncy CityXen Sprites by Deadline
+// Bouncy CityXen Sprites
+// by Deadline
 // Get spritepad here: https://www.subchristsoftware.com/spritepad.htm
 // Get sinusmaker here: https://csdb.dk/release/?id=124272
 

@@ -1,13 +1,13 @@
+//////////////////////////////////////////////////////////////////////
 // CityXen Commodore 64 Programming Series Part 4
-// Custom Characters And Smooth Scroll
-// & Introducing Kick Assembler Macros
+// Custom Characters And Smooth Scroll & Introducing Kick Assembler Macros
 // by Deadline
 
-#import "../include/Constants.asm"
-#import "../include/Macros.asm"
+#import "../include/Constants.asm" // import constants.asm which contains helpful words instead of hex numbers
+#import "../include/Macros.asm"    // import macros.asm which has macros to use
 
-*=$3000 "customfont"
-#import "characters-charset.asm"
+*=$3000 "customfont" // specify that characters load in at $3000
+#import "characters-charset.asm"   // import character data
 
 *=$0801 "BASIC"
     BasicUpstart($0810)
