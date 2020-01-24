@@ -9,4 +9,5 @@ Part 3: Sinus Sprites https://www.youtube.com/watch?v=-UmPO8koghQ
 
 Part 4: Custom Characters, Smooth Scrolling & Macros https://www.youtube.com/watch?v=eDrUNJQrAnU
 
-Part 5: Horizontal Scroller Message (Coming Soon)
+Part 5: Horizontal Scroller Message, Multicolor Characters & Raster line changes https://www.youtube.com/watch?v=2EbZP9kp4zE
+
