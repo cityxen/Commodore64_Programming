@@ -14,6 +14,7 @@
 .const COLOR_RAM            = $D800
 //////////////////////////////////////////////////////////////////////////////////////
 // SPRITE POINTERS
+.const SPRITE_POINTERS      = $7F8
 .const SPRITE_0_POINTER     = $7F8
 .const SPRITE_1_POINTER     = $7F9
 .const SPRITE_2_POINTER     = $7FA
@@ -24,6 +25,7 @@
 .const SPRITE_7_POINTER     = $7FF
 //////////////////////////////////////////////////////////////////////////////////////
 // VIC CONSTANTS
+.const SPRITE_LOCATIONS     = $D000
 .const SPRITE_0_X           = $D000 // 53248 // SP0X Sprite 0 Horizontal Position
 .const SPRITE_0_Y           = $D001 // 53249 // SP0Y Sprite 0 Vertical Position
 .const SPRITE_1_X           = $D002 // 53250 // SP1X Sprite 1 Horizontal Position
@@ -40,6 +42,7 @@
 .const SPRITE_6_Y           = $D00D // 53261 // SP6Y Sprite 6 Vertical Position
 .const SPRITE_7_X           = $D00E // 53262 // SP7X Sprite 7 Horizontal Position
 .const SPRITE_7_Y           = $D00F // 53263 // SP7Y Sprite 7 Vertical Position
+.const SPRITE_LOCATIONS_MSB = $D010 // 53264 // Most Significant Bits of Sprites 0-7 Horizontal Position
 .const SPRITE_MSB_X         = $D010 // 53264 // Most Significant Bits of Sprites 0-7 Horizontal Position
 .const VIC_CONTROL_REG_1    = $D011 // 53265 // RST8 ECM BMM DEN RSEL [ YSCROLL ]
 .const VIC_RASTER_COUNTER   = $D012 // 53266
@@ -63,6 +66,7 @@
 .const BACKGROUND_COLOR_3   = $D024 // 53284
 .const SPRITE_MULTICOLOR_0  = $D025
 .const SPRITE_MULTICOLOR_1  = $D026
+.const SPRITE_COLORS        = $D027
 .const SPRITE_0_COLOR       = $D027
 .const SPRITE_1_COLOR       = $D028
 .const SPRITE_2_COLOR       = $D029
