@@ -11,4 +11,4 @@ Part 4: Custom Characters, Smooth Scrolling & Macros https://www.youtube.com/wat
 
 Part 5: Horizontal Scroller Message, Multicolor Characters & Raster line changes https://www.youtube.com/watch?v=2EbZP9kp4zE
 
-Part 6: Petmate Screens and Keyboard Reading (Coming Soon)
+Part 6: Petmate Screens and Keyboard Reading https://www.youtube.com/watch?v=XYHfms1-3Yo
