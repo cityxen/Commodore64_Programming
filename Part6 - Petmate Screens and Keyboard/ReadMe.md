@@ -8,7 +8,7 @@ Part 6: Petmate Screens and Keyboard Reading https://www.youtube.com/watch?v=XYH
 
 Get Petmate here: https://nurpax.github.io/petmate/
 
-Screens (note screen 3 and 4 are combined into one data file):
+Screens (note screen 3 and 4 are combined into one data file (screen3.asm)):
 
 ![screen1](https://raw.githubusercontent.com/cityxen/Commodore64_Programming/master/Part6%20-%20Petmate%20Screens%20and%20Keyboard/images/screen1.jpg)
 ![screen2](https://raw.githubusercontent.com/cityxen/Commodore64_Programming/master/Part6%20-%20Petmate%20Screens%20and%20Keyboard/images/screen2.jpg)
