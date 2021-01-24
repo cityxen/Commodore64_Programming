@@ -11,7 +11,10 @@ Part 2: Hello World https://www.youtube.com/watch?v=017LMlEqUO4
 Part 3: Sinus Sprites https://www.youtube.com/watch?v=-UmPO8koghQ
 
 Part 4: Custom Characters, Smooth Scrolling & Macros https://www.youtube.com/watch?v=eDrUNJQrAnU
+![screen1](https://raw.githubusercontent.com/cityxen/Commodore64_Programming/master/Part4%20-%20Custom%20Chars,%20Smooth%20Scrolling/images/screen1.jpg)
 
 Part 5: Horizontal Scroller Message, Multicolor Characters & Raster line changes https://www.youtube.com/watch?v=2EbZP9kp4zE
+![screen1](https://raw.githubusercontent.com/cityxen/Commodore64_Programming/master/Part5%20-%20Scroller%20Message/images/screen1.jpg)
 
 Part 6: Petmate Screens and Keyboard Reading https://www.youtube.com/watch?v=XYHfms1-3Yo
+![screen1](https://raw.githubusercontent.com/cityxen/Commodore64_Programming/master/Part6%20-%20Petmate%20Screens%20and%20Keyboard/images/screen1.jpg)
