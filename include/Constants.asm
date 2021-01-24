@@ -12,6 +12,20 @@
 .const VICSCN               = $400
 .const SCREEN_RAM           = $400
 .const COLOR_RAM            = $D800
+.const TEMP_1               = $FB
+.const TEMP_2               = $FC
+.const TEMP_3               = $FD
+.const TEMP_4               = $FE
+.const TEMP_5               = $02
+.const TEMP_6               = $c003
+.const TEMP_7               = $04
+.const TEMP_8               = $05
+.const JOYPORT_TIMER        = $05
+//////////////////////////////////////////////////////////////////////////////////////
+// VARIOUS STUFF
+.const ZP_DATA_DIRECTION    = $00
+.const ZP_IO_REGISTER       = $01
+.const KERNAL_STOP_VECTOR   = $0328
 //////////////////////////////////////////////////////////////////////////////////////
 // SPRITE POINTERS
 .const SPRITE_POINTERS      = $7F8
@@ -26,34 +40,34 @@
 //////////////////////////////////////////////////////////////////////////////////////
 // VIC CONSTANTS
 .const SPRITE_LOCATIONS     = $D000
-.const SPRITE_0_X           = $D000 // 53248 // SP0X Sprite 0 Horizontal Position
-.const SPRITE_0_Y           = $D001 // 53249 // SP0Y Sprite 0 Vertical Position
-.const SPRITE_1_X           = $D002 // 53250 // SP1X Sprite 1 Horizontal Position
-.const SPRITE_1_Y           = $D003 // 53251 // SP1Y Sprite 1 Vertical Position
-.const SPRITE_2_X           = $D004 // 53252 // SP2X Sprite 2 Horizontal Position
-.const SPRITE_2_Y           = $D005 // 53253 // SP2Y Sprite 2 Vertical Position
-.const SPRITE_3_X           = $D006 // 53254 // SP3X Sprite 3 Horizontal Position
-.const SPRITE_3_Y           = $D007 // 53255 // SP3Y Sprite 3 Vertical Position
-.const SPRITE_4_X           = $D008 // 53256 // SP4X Sprite 4 Horizontal Position
-.const SPRITE_4_Y           = $D009 // 53257 // SP4Y Sprite 4 Vertical Position
-.const SPRITE_5_X           = $D00A // 53258 // SP5X Sprite 5 Horizontal Position
-.const SPRITE_5_Y           = $D00B // 53259 // SP5Y Sprite 5 Vertical Position
-.const SPRITE_6_X           = $D00C // 53260 // SP6X Sprite 6 Horizontal Position
-.const SPRITE_6_Y           = $D00D // 53261 // SP6Y Sprite 6 Vertical Position
-.const SPRITE_7_X           = $D00E // 53262 // SP7X Sprite 7 Horizontal Position
-.const SPRITE_7_Y           = $D00F // 53263 // SP7Y Sprite 7 Vertical Position
-.const SPRITE_LOCATIONS_MSB = $D010 // 53264 // Most Significant Bits of Sprites 0-7 Horizontal Position
-.const SPRITE_MSB_X         = $D010 // 53264 // Most Significant Bits of Sprites 0-7 Horizontal Position
-.const VIC_CONTROL_REG_1    = $D011 // 53265 // RST8 ECM BMM DEN RSEL [ YSCROLL ]
+.const SPRITE_0_X           = $D000 // 53248 SP0X Sprite 0 Horizontal Position
+.const SPRITE_0_Y           = $D001 // 53249 SP0Y Sprite 0 Vertical Position
+.const SPRITE_1_X           = $D002 // 53250 SP1X Sprite 1 Horizontal Position
+.const SPRITE_1_Y           = $D003 // 53251 SP1Y Sprite 1 Vertical Position
+.const SPRITE_2_X           = $D004 // 53252 SP2X Sprite 2 Horizontal Position
+.const SPRITE_2_Y           = $D005 // 53253 SP2Y Sprite 2 Vertical Position
+.const SPRITE_3_X           = $D006 // 53254 SP3X Sprite 3 Horizontal Position
+.const SPRITE_3_Y           = $D007 // 53255 SP3Y Sprite 3 Vertical Position
+.const SPRITE_4_X           = $D008 // 53256 SP4X Sprite 4 Horizontal Position
+.const SPRITE_4_Y           = $D009 // 53257 SP4Y Sprite 4 Vertical Position
+.const SPRITE_5_X           = $D00A // 53258 SP5X Sprite 5 Horizontal Position
+.const SPRITE_5_Y           = $D00B // 53259 SP5Y Sprite 5 Vertical Position
+.const SPRITE_6_X           = $D00C // 53260 SP6X Sprite 6 Horizontal Position
+.const SPRITE_6_Y           = $D00D // 53261 SP6Y Sprite 6 Vertical Position
+.const SPRITE_7_X           = $D00E // 53262 SP7X Sprite 7 Horizontal Position
+.const SPRITE_7_Y           = $D00F // 53263 SP7Y Sprite 7 Vertical Position
+.const SPRITE_LOCATIONS_MSB = $D010 // 53264 Most Significant Bits of Sprites 0-7 Horizontal Position
+.const SPRITE_MSB_X         = $D010 // 53264 Most Significant Bits of Sprites 0-7 Horizontal Position
+.const VIC_CONTROL_REG_1    = $D011 // 53265 RST8 ECM- BMM- DEN- RSEL [   YSCROLL   ]
 .const VIC_RASTER_COUNTER   = $D012 // 53266
 .const VIC_LIGHT_PEN_X      = $D013 // 53267
 .const VIC_LIGHT_PEN_Y      = $D014 // 53268
 .const SPRITE_ENABLE        = $D015 // 53269
-.const VIC_CONTROL_REG_2    = $D016 // 53270 - - RES MCM CSEL [ XSCROLL ]
+.const VIC_CONTROL_REG_2    = $D016 // 53270 ---- ---- RES- MCM- CSEL [   XSCROLL   ]
 .const SPRITE_EXPAND_Y      = $D017 // 53271
-.const VIC_MEM_POINTERS     = $D018 // 53272 VM13 VM12 VM11 VM10 CB13 CB12 CB11 -
-.const VIC_INTERRUPT_REG    = $D019 // 53273 IRQ - - - ILP IMMC IMBC IRST
-.const VIC_INTERRUPT_ENABLE = $D01A // 53274 - - - - ELP EMMC EMBC ERST
+.const VIC_MEM_POINTERS     = $D018 // 53272 VM13 VM12 VM11 VM10 CB13 CB12 CB11 ----
+.const VIC_INTERRUPT_REG    = $D019 // 53273 IRQ- ---- ---- ---- ILP- IMMC IMBC IRST
+.const VIC_INTERRUPT_ENABLE = $D01A // 53274 ---- ---- ---- ---- ELP- EMMC EMBC ERST
 .const SPRITE_PRIORITY      = $D01B // 53275
 .const SPRITE_MULTICOLOR    = $D01C // 53276
 .const SPRITE_EXPAND_X      = $D01D // 53277
@@ -126,9 +140,10 @@
 // KERNAL SUB ROUTINES
 .const KERNAL_PRINT_HEX     = $BDCD // Print 16 bit number to screen LDX lobyte LDA hibyte
 //////////////////////////////////////////////////////////////////////////////////////
-// KERNAL SCREEN Stuff
+// OTHER KERNAL STUFF
 .const CURSOR_SET           = $E510
 .const KERNAL_CLEAR_SCREEN  = $E544 // Clear Screen
+.const KERNAL_IRQ_ENTRY     = $EA31
 //////////////////////////////////////////////////////////////////////////////////////
 // Serial BUS
 .const SERIAL_TALK          = $ED09 // Send TALK command to serial bus. Input: A = Device number.
@@ -187,3 +202,8 @@
 .const KERNAL_SCREEN        = $FFED // Input: – Output: X = Number of columns (40); Y = Number of rows (25) Used registers: X, Y
 .const KERNAL_PLOT          = $FFF0 // Input: Carry: 0 = Restore from input, 1 = Save to output; X = Cursor column (if Carry = 0); Y = Cursor row (if Carry = 0) Output: X = Cursor column (if Carry = 1); Y = Cursor row (if Carry = 1) Used registers: X, Y
 .const KERNAL_IOBASE        = $FFF3 // Input: – Output: X/Y = CIA #1 base address ($DC00) Used registers: X, Y
+//////////////////////////////////////////////////////////////////////////////////////
+// KEYS
+.const KEY_RETURN           = $0d
+.const KEY_CURSOR_DOWN      = $11
+.const KEY_CURSOR_UP        = $91
