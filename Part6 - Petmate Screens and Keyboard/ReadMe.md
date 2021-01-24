@@ -7,3 +7,8 @@ This is the git repo to accompany the youtube series: Commodore 64 Programming b
 Part 6: Petmate Screens and Keyboard Reading https://www.youtube.com/watch?v=XYHfms1-3Yo
 
 Get Petmate here: https://nurpax.github.io/petmate/
+
+Screens:
+![screen1]("https://github.com/cityxen/Commodore64_Programming/blob/master/Part6 - Petmate Screens and Keyboard/images/screen1.jpg")
+![screen2]("https://github.com/cityxen/Commodore64_Programming/blob/master/Part6 - Petmate Screens and Keyboard/images/screen2.jpg")
+
