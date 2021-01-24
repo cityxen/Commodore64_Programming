@@ -9,6 +9,7 @@ Part 6: Petmate Screens and Keyboard Reading https://www.youtube.com/watch?v=XYH
 Get Petmate here: https://nurpax.github.io/petmate/
 
 Screens:
-![screen1]("https://github.com/cityxen/Commodore64_Programming/blob/master/Part6 - Petmate Screens and Keyboard/images/screen1.jpg")
-![screen2]("https://github.com/cityxen/Commodore64_Programming/blob/master/Part6 - Petmate Screens and Keyboard/images/screen2.jpg")
+![screen1](https://raw.githubusercontent.com/cityxen/Commodore64_Programming/master/Part6%20-%20Petmate%20Screens%20and%20Keyboard/images/screen1.jpg)
+![screen2](https://raw.githubusercontent.com/cityxen/Commodore64_Programming/master/Part6%20-%20Petmate%20Screens%20and%20Keyboard/images/screen2.jpg)
+
 
