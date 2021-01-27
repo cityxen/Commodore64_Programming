@@ -1,0 +1,9 @@
+.label print_hex=$980
+.label strbuf=$857
+.label zprint=$957
+.label program=$815
+.label no_rs232=$833
+.label zero_strbuf=$972
+.label up9600_ident=$966
+.label buf_crsr=$957
+.label print_hex_conv_table=$999

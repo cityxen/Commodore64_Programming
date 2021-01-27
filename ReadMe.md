@@ -25,3 +25,7 @@ Part 5: Horizontal Scroller Message, Multicolor Characters & Raster line changes
 Part 6: Petmate Screens and Keyboard Reading https://www.youtube.com/watch?v=XYHfms1-3Yo
 
 ![p6-screen1](https://raw.githubusercontent.com/cityxen/Commodore64_Programming/master/Part6%20-%20Petmate%20Screens%20and%20Keyboard/images/screen1.jpg)
+
+Part 7: Disk Status and Directory ytlink
+
+![p7-screen1](https://raw.githubusercontent.com/cityxen/Commodore64_Programming/master/Part7%20-%20Disk%20Status%20and%20Directory/images/screen1.jpg)

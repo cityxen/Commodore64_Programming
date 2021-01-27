@@ -1,5 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////
-// Deadline's C64 Assembly Language Library: Macros: DrawPetMateScreen
+// CityXen - https://linktr.ee/cityxen
+//////////////////////////////////////////////////////////////////////////////////////
+// Deadline's C64 Assembly Language Library: Macros: DrawPetMateScreen Macro
 //////////////////////////////////////////////////////////////////////////////////////
 
 .macro DrawPetMateScreen(screen_name) {
@@ -10,7 +12,7 @@
     lda screen_name+1
     sta BACKGROUND_COLOR
     ldx #$00 // Draw the screen from memory location
-dpms_loop:
+!dpms_loop:
     lda screen_name+2,x // Petmate screen (+2 is to skip over background/border color)
     sta 1024,x
     lda screen_name+2+256,x
@@ -29,7 +31,7 @@ dpms_loop:
     sta COLOR_RAM+512+256,x
     inx
     cpx #$00
-    bne dpms_loop
+    bne !dpms_loop-
     // Draw the Petmate Screen... END
     ////////////////////////////////////////////////
 }

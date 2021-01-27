@@ -1,7 +1,11 @@
 //////////////////////////////////////////////////////////////////////////////////////
+// CityXen - https://linktr.ee/cityxen
+//////////////////////////////////////////////////////////////////////////////////////
 // Deadline's C64 Assembly Language Library: Constants
 //////////////////////////////////////////////////////////////////////////////////////
-// MEMORY_CONSTANTS
+
+//////////////////////////////////////////////////////////////////////////////////////
+// Various Memory Constants
 .const SECONDARY_ADDRESS    = $B9
 .const DEVICE_NUMBER        = $BA
 .const PNTR                 = $D3
@@ -12,6 +16,7 @@
 .const VICSCN               = $400
 .const SCREEN_RAM           = $400
 .const COLOR_RAM            = $D800
+// Safe zero page locations $57-$70, $92-$96, $A3-$B1, $F7-$FE
 .const TEMP_1               = $FB
 .const TEMP_2               = $FC
 .const zp_tmp               = $FB
@@ -23,6 +28,21 @@
 .const TEMP_6               = $c003
 .const TEMP_7               = $04
 .const TEMP_8               = $05
+.const zp_ptr_screen        = $60
+.const zp_ptr_screen_lo     = $60
+.const zp_ptr_screen_hi     = $61
+.const zp_ptr_color         = $62
+.const zp_ptr_color_lo      = $62
+.const zp_ptr_color_hi      = $63
+.const zp_point_tmp         = $59
+.const zp_point_tmp_lo      = $59
+.const zp_point_tmp_hi      = $5a
+.const zp_ptr_2             = $64
+.const zp_ptr_2_lo          = $64
+.const zp_ptr_2_hi          = $65
+.const zp_temp              = $a3
+.const zp_temp2             = $a4
+.const zp_temp3             = $a5
 .const JOYPORT_TIMER        = $05
 //////////////////////////////////////////////////////////////////////////////////////
 // VARIOUS STUFF
@@ -173,7 +193,9 @@
 .const KERNAL_VECTOR        = $FF8D // Input: Carry: 0 = Copy user table into vector table, 1 = Copy vector table into user table; X/Y = Pointer to user table. Output: – Used registers: A, Y
 .const KERNAL_SETMSG        = $FF90 // Input: A = Switch value. Output: – Used registers: –
 .const KERNAL_LSTNSA        = $FF93 // Input: A = Secondary address Output: – Used registers: A
+.const KERNAL_SECLSN        = $FF93 // Input: A = Secondary address Output: – Used registers: A
 .const KERNAL_TALKSA        = $FF96 // Input: A = Secondary address Output: – Used registers: A
+.const KERNAL_SECTLK        = $FF96 // Input: A = Secondary address Output: – Used registers: A
 .const KERNAL_MEMBOT        = $FF99 // Input: Carry: 0 = Restore from input, 1 = Save to output; X/Y = Address (if Carry = 0) Output: X/Y = Address (if Carry = 1) Used registers: X, Y
 .const KERNAL_MEMTOP        = $FF9C // Input: Carry: 0 = Restore from input, 1 = Save to output; X/Y = Address (if Carry = 0) Output: X/Y = Address (if Carry = 1) Used registers: X, Y
 .const KERNAL_SCNKEY        = $FF9F // Input: – Output: – Used registers: A, X, Y
@@ -206,7 +228,63 @@
 .const KERNAL_PLOT          = $FFF0 // Input: Carry: 0 = Restore from input, 1 = Save to output; X = Cursor column (if Carry = 0); Y = Cursor row (if Carry = 0) Output: X = Cursor column (if Carry = 1); Y = Cursor row (if Carry = 1) Used registers: X, Y
 .const KERNAL_IOBASE        = $FFF3 // Input: – Output: X/Y = CIA #1 base address ($DC00) Used registers: X, Y
 //////////////////////////////////////////////////////////////////////////////////////
-// KEYS
-.const KEY_RETURN           = $0d
-.const KEY_CURSOR_DOWN      = $11
-.const KEY_CURSOR_UP        = $91
+// KEYS (This is not MATRIX codes)
+.const KEY_RETURN       = $0d
+.const KEY_HOME         = $13
+.const KEY_DELETE       = $14
+.const KEY_SPACE        = $20
+.const KEY_DOLLAR_SIGN  = $24
+.const KEY_ASTERISK     = $2a
+.const KEY_MINUS        = $2d
+.const KEY_PLUS         = $2b
+.const KEY_COLON        = $3a
+.const KEY_SEMICOLON    = $3b
+.const KEY_1            = $31
+.const KEY_2            = $32
+.const KEY_3            = $33
+.const KEY_4            = $34
+.const KEY_5            = $35
+.const KEY_6            = $36
+.const KEY_7            = $37
+.const KEY_8            = $38
+.const KEY_9            = $39
+.const KEY_EQUAL        = $3d
+.const KEY_A            = $41
+.const KEY_B            = $42
+.const KEY_C            = $43
+.const KEY_D            = $44
+.const KEY_E            = $45
+.const KEY_F            = $46
+.const KEY_G            = $47
+.const KEY_H            = $48
+.const KEY_I            = $49
+.const KEY_J            = $4a
+.const KEY_K            = $4b
+.const KEY_L            = $4c
+.const KEY_M            = $4d
+.const KEY_N            = $4e
+.const KEY_O            = $4f
+.const KEY_P            = $50
+.const KEY_Q            = $51
+.const KEY_R            = $52
+.const KEY_S            = $53
+.const KEY_T            = $54
+.const KEY_U            = $55
+.const KEY_V            = $56
+.const KEY_W            = $57
+.const KEY_X            = $58
+.const KEY_Y            = $59
+.const KEY_Z            = $5a
+.const KEY_F1           = $85
+.const KEY_F2           = $89
+.const KEY_F3           = $86
+.const KEY_F4           = $8a
+.const KEY_F5           = $87
+.const KEY_F6           = $8b
+.const KEY_F7           = $88
+.const KEY_F8           = $89
+.const KEY_CURSOR_UP    = $91
+.const KEY_CURSOR_DOWN  = $11
+.const KEY_CURSOR_LEFT  = $9d
+.const KEY_CURSOR_RIGHT = $1d
+.const KEY_CLEAR        = $93
