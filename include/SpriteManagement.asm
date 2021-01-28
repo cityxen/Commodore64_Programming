@@ -1,12 +1,3 @@
-This is not a good example of how to do sprite management. 
-It is more of an experiment with the KickAssembler macro
-system, and should not be used.
-This is a deliberate error to force you to read this.
-Do not use this code, it is horrible!
-I'll be working on a new method of sprite management in 
-the future.
-
-- Deadline
 //////////////////////////////////////////////////////////////////////////////////////
 // CityXen - https://linktr.ee/cityxen
 //////////////////////////////////////////////////////////////////////////////////////
@@ -433,4 +424,3 @@ animate_sprite_done:
 end_animate_sprites:
 updateexit:
 }
-
