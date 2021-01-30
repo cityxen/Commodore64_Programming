@@ -54,11 +54,8 @@
 }
 
 .macro PokeStringColor(loc,string_loc,color) {
-
     .var color_ram=COLOR_RAM
-
 !loop:
-
     .var color_loc=COLOR_RAM
     .var rainbow=false
     .if(color!="RAINBOW") {
