@@ -22,6 +22,7 @@ Add Retro Dev Tools bin-win folder to your environment path. Example: https://ww
 Alternatively, you can type it on the command line
 
 ```
+
 set PATH=%PATH%;X:\path\to\retro-dev-tools\bin-win\
 
 ```
