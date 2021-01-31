@@ -40,3 +40,25 @@ echo "export PATH=$PATH:/path/to/retro-dev-lib/bin-linux" >> ~/.bashrc
 ```
 
 Restart Computer
+
+## After Installation
+
+Now you have the power of the Retro Dev Tools at your disposal.
+
+All you have to do now is edit your asm file, then run the script. If you have everything installed properly, it should compile your program, place it into a disk file, and then run that disk file in the appropriate emulator.
+
+### Windows
+
+```
+
+Build.bat
+
+```
+
+### Linux
+
+```
+
+./build_linux.sh
+
+```
