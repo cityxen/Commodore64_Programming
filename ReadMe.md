@@ -41,3 +41,8 @@ https://www.youtube.com/watch?v=XYHfms1-3Yo
 https://youtu.be/t-hzeeFpD8c
 
 ![p7-screen1](https://raw.githubusercontent.com/cityxen/Commodore64_Programming/master/Part7%20-%20Disk%20Status%20and%20Directory/images/screen1.jpg)
+
+### Part 8: Disk Load and Save + SID Random Number Generation
+(insert yt link here)
+
+![p8-screen1](https://github.com/cityxen/Commodore64_Programming/blob/master/Part8%20-%20Disk%20Load%20and%20Save/images/ss1-2.jpg)
