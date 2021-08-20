@@ -19,11 +19,11 @@ copydiskdata:
 
 displaydiskdata:
     ldx #$00
-!cpdd:
+!ddd:
     lda data_start,x
     sta $0400+400,x
     inx
-    bne !cpdd-
+    bne !ddd-
     rts
 
 viewdiskdata:
@@ -43,14 +43,14 @@ viewdiskdata:
 
 randomizediskdata:
     ldx #$00
-!cpdd:
+!rdd:
     lda $d41b // (get random number from SID)
     cmp last_rand // check to remove duplicates
-    beq !cpdd-
+    beq !rdd-
     sta last_rand
     sta data_start,x
     inx
-    bne !cpdd-
+    bne !rdd-
     rts
 last_rand:
 .byte 0
