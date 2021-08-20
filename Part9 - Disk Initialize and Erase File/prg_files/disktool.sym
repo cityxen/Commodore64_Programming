@@ -1,0 +1,78 @@
+.label draw_drive_number=$870
+.label draw_confirm_question=$c9d
+.label format_disk=$b11 {
+}
+.label erase_file_confirm=$b95
+.label formatdisk_confirm=$b02
+.label drive_number_text=$886
+.label displaydiskdata=$210c
+.label skip2=$9ae
+.label screen_disk_tool=$1800
+.label filename=$1fd3
+.label writeprogram=$c39 {
+}
+.label fd_text_end=$b72
+.label confirm_text=$cc5
+.label filename_length=$1fe7
+.label mainloop=$88e
+.label ef_text=$c1a
+.label dir_presskey_text=$d06
+.label diskdata=$2000
+.label fd_cmd_end=$b94
+.label ef_out=$c16
+.label ef_cpfn=$bb8
+.label fd_loop2=$b05
+.label ef_cmd=$c22
+.label next=$9ac
+.label save_saving=$afa
+.label presskey=$cf2 {
+}
+.label getbyte=$9ea
+.label prg_filename=$1fe8
+.label end=$9f2
+.label start=$827 {
+}
+.label dirname=$9f7
+.label drive_number=$1fd2
+.label dirname_end=$9f8
+.label init=$80d
+.label show_drive_status=$9f8
+.label exit=$9d6
+.label copydiskdata=$2100
+.label ndc_loop=$ca1
+.label ef_cmd_end=$c38
+.label viewdiskdata=$2118 {
+}
+.label sds_loop=$a19
+.label formatdisk=$b02
+.label cfn_dont_add_w=$c61
+.label cfn_dont_add_s=$abb
+.label cfn_dont_add_l=$a53
+.label erasefile=$b95
+.label ef2skip=$c01
+.label efc_loop2=$b98
+.label char=$9c4
+.label efw_print1=$bcb
+.label efw_print2=$bd8
+.label erase_file=$ba4 {
+}
+.label fd_cmd=$b72
+.label load_loading=$a8a
+.label load_data=$a2b {
+}
+.label randomizediskdata=$213c
+.label ef_text_end=$c22
+.label sds_devnp=$a2a
+.label show_directory=$979 {
+}
+.label prg_filename_length=$1ff9
+.label error=$9d6
+.label last_rand=$2150
+.label fd_check_y_hit=$b0c
+.label save_data=$a93 {
+}
+.label ef2_noerror=$c0e
+.label fd_text=$b62
+.label sds_eof=$a26
+.label fd_out=$b5e
+.label efc_check_y_hit=$b9f

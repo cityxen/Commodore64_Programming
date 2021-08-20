@@ -47,3 +47,8 @@ https://youtu.be/t-hzeeFpD8c
 https://youtu.be/Zd19AuajTdQ
 
 ![p8-screen1](https://github.com/cityxen/Commodore64_Programming/blob/master/Part8%20-%20Disk%20Load%20and%20Save/images/ss1-2.jpg)
+
+### Pert 9: Disk Format and Erase File plus Save Self Program
+(insert yt link here (coming soon) )
+
+![p9-screen1](https://github.com/cityxen/Commodore64_Programming/blob/master/Part9%20-%20Disk%20Initialize%20and%20Erase%20File/images/ss1.jpg)
