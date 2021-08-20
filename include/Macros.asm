@@ -21,6 +21,16 @@
     sta BORDER_COLOR     // $D021
 }
 
+.macro ClearScreenB(color,bcolor) {
+    lda #$93
+    jsr KERNAL_CHROUT    // $FFD2
+    lda #color
+    sta BACKGROUND_COLOR // $D020
+    lda #bcolor
+    sta BORDER_COLOR     // $D021
+    sta 646
+}
+
 .macro ClearScreenColors(color,bcolor) {
     ClearScreen(color)
     ldx #$00
