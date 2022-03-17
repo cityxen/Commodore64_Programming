@@ -4,8 +4,9 @@
 
 This is the git repo to accompany the youtube series: Commodore 64 Programming by CityXen https://www.youtube.com/c/CityXen
 
-Part 8: Disk Load and Save + SID Random number generation (youtube video link here)
+Part 8: Disk Load and Save + SID Random number generation
 
+https://youtu.be/Zd19AuajTdQ
 
 ![p8-screen1](https://github.com/cityxen/Commodore64_Programming/blob/master/Part8%20-%20Disk%20Load%20and%20Save/images/ss1-2.jpg)
 
