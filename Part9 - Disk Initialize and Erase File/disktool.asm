@@ -25,11 +25,11 @@ filename:
 filename_length:
 .byte 12
 
-.const data_start       = $6000 // 256 bytes of data storage area
-.const data_end         = $6100
+.const data_start           = $6000 // 256 bytes of data storage area
+.const data_end             = $6100
 
-.const zp_pointer_lo    = $fb
-.const zp_pointer_hi    = $fc
+.const zp_pointer_lo        = $fb
+.const zp_pointer_hi        = $fc
 
 prg_filename:
 .encoding "screencode_mixed"
@@ -38,8 +38,8 @@ prg_filename:
 prg_filename_length:
 .byte 16
 
-.const prg_start        = $0801
-.const prg_end          = $2150
+.const prg_start            = $0801
+.const prg_end              = $2150
 
 *=$2000 "DiskData"
 #import "diskdata.asm"
@@ -90,12 +90,12 @@ draw_drive_number:
 drive_number_text:
 .text "08091011"
 
-/////////////////////////////////////////////
+//////////////////////////////////////////////
 // Main Loop
 mainloop:
 
-/////////////////////////////////////////////
-// Check keyboard
+//////////////////////////////////////////////
+// Check Keyboard
     jsr KERNAL_GETIN // Check keyboard for key hits
 // L (Load Data)
 !check_key:
@@ -138,6 +138,14 @@ mainloop:
     jsr copydiskdata
     jmp start
 
+// D (Directory)
+!check_key:
+    cmp #KEY_D
+    bne !check_key+
+    inc $d020
+    jsr show_directory
+    jmp start
+
 // I (Initialize Disk (FORMAT))
 !check_key:
     cmp #KEY_I
@@ -154,19 +162,12 @@ mainloop:
     jsr erasefile
     jmp start
 
-// W (Write program disk)
+// W (Write program to disk)
 !check_key:
     cmp #KEY_W
     bne !check_key+
     inc $d020
     jsr writeprogram
-    jmp start
-
-// D (Directory)
-!check_key:
-    cmp #KEY_D
-    bne !check_key+
-    jsr show_directory
     jmp start
 
 // C (Change Drive)
@@ -223,7 +224,7 @@ mainloop:
 // Show Directory
 
 show_directory:
-    ClearScreenB(BLUE,LIGHT_BLUE)
+    ClearScreen(BLACK)
     lda #dirname_end-dirname // set length of dirname
     ldx #<dirname // lo byte of dirname
     ldy #>dirname // hi byte of dirname
@@ -270,7 +271,16 @@ exit:
     lda #$0d
     jsr KERNAL_CHROUT
     jsr show_drive_status
-    jsr presskey
+    ldx #$00
+anykey_text:
+    lda dir_presskey_text,x
+    beq !anykey+
+    jsr KERNAL_CHROUT
+    inx
+    jmp anykey_text
+!anykey:
+    jsr KERNAL_WAIT_KEY
+    beq !anykey-
     rts
 
 getbyte:
@@ -289,7 +299,7 @@ dirname_end:
 /////////////////////////////////////////////
 // Show Drive Status
 
-show_drive_status:   
+show_drive_status:
     lda #$00
     sta $90 // clear status flags
     lda drive_number // device number
@@ -321,7 +331,14 @@ sds_devnp:
 
 load_data:
     ClearScreen(BLACK)
-    PrintString(load_loading)
+    ldx #$00
+!ld:
+    lda load_loading,x
+    beq !ld+
+    sta SCREEN_RAM,x
+    inx
+    jmp !ld-
+!ld:
     ldx #$00
 !ld:
     lda filename,x
@@ -351,13 +368,22 @@ cfn_dont_add_l:
     jsr KERNAL_CHROUT
     jsr KERNAL_CHROUT
     jsr show_drive_status
-    jsr presskey
+    ldx #$00
+!ld:
+    lda dir_presskey_text,x
+    beq !ld+
+    jsr KERNAL_CHROUT
+    inx
+    jmp !ld-
+!ld:
+    jsr KERNAL_WAIT_KEY
+    beq !ld-
     jsr viewdiskdata
     rts
 
 load_loading:
 .encoding "screencode_mixed"
-.text "LOADING "
+.text "loading "
 .byte 0
 
 /////////////////////////////////////////////
@@ -365,7 +391,13 @@ load_loading:
 
 save_data:
     ClearScreen(BLACK)
-    PrintString(save_saving)
+    ldx #$00
+!sv:
+    lda save_saving,x
+    beq !sv+
+    sta SCREEN_RAM,x
+    inx
+    jmp !sv-
 !sv:
     ldx #$00
 !sv:
@@ -401,12 +433,21 @@ cfn_dont_add_s:
     jsr KERNAL_CHROUT
     jsr KERNAL_CHROUT
     jsr show_drive_status
-    jsr presskey
+    ldx #$00
+!sv:
+    lda dir_presskey_text,x
+    beq !sv+
+    jsr KERNAL_CHROUT
+    inx
+    jmp !sv-
+!sv:
+    jsr KERNAL_WAIT_KEY
+    beq !sv-
     rts
 
 save_saving:
-.encoding "petscii_upper"
-.text "SAVING "
+.encoding "screencode_mixed"
+.text "saving "
 .byte 0
 
 /////////////////////////////////////////////
@@ -419,12 +460,11 @@ fd_loop2:
     jsr KERNAL_GETIN
     cmp #$00
     beq fd_loop2
-fd_check_y_hit: // Y (Yes New Memory)
-    cmp #$59
+fd_check_y_hit: // Y (Yes Format the Disk)
+    cmp #KEY_Y
     beq format_disk
     rts
-    // Yes hit... erase the file
-format_disk:
+ format_disk:
     ClearScreenB(BLUE,LIGHT_BLUE)
     PrintString(fd_text)
     PrintLF()
@@ -435,18 +475,18 @@ format_disk:
     ldy #>fd_cmd
     jsr KERNAL_SETNAM // call SETNAM
 
-    lda #$0F          // file number 15 
-    ldx drive_number  // default to device 8 
-    ldy #$0F          // secondary address 15
-    jsr KERNAL_SETLFS // call SETLFS 
-
+    lda #$0f          // file number 15
+    ldx drive_number  // default to device 8
+    ldy #$0f          // secondary address 15
+    jsr KERNAL_SETLFS // call SETLFS
     jsr KERNAL_OPEN   // call OPEN
 
     jsr show_drive_status
 
     lda #$0F          // filenumber 15
-    jsr KERNAL_CLOSE  // call CLOSE 
+    jsr KERNAL_CLOSE  // call CLOSE
     jsr KERNAL_CLRCHN // call CLRCHN
+
 fd_out:
     jsr presskey
     rts
@@ -460,7 +500,6 @@ fd_cmd:
 .text "N0:CLEANDISK,01" // command string
 .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 fd_cmd_end:
-    rts
 
 /////////////////////////////////////////////
 // Erase File
@@ -472,11 +511,11 @@ efc_loop2:
     jsr KERNAL_GETIN
     cmp #$00
     beq efc_loop2
-efc_check_y_hit: // Y (Yes New Memory)
-    cmp #$59
+efc_check_y_hit: // Y (Yes Erase File)
+    cmp #KEY_Y
     beq erase_file
     rts
-    // Yes hit... erase the file
+    // Yes hit, erase the file
 erase_file:
     ClearScreenB(BLUE,LIGHT_BLUE)
     ldx #$00
@@ -497,7 +536,7 @@ efw_print1:
     inx
     cpx #$08
     bne efw_print1
-    ldx#$00
+    ldx #$00
 efw_print2:
     lda ef_cmd,x
     jsr KERNAL_CHROUT
@@ -506,44 +545,38 @@ efw_print2:
     lda zp_temp
     cmp zp_temp2
     bne efw_print2
-    lda #$0d
-    jsr KERNAL_CHROUT
-    jsr KERNAL_CHROUT
+    PrintLF()
+    PrintLF()
     lda zp_temp
     ldx #<ef_cmd
     ldy #>ef_cmd
-    jsr KERNAL_SETNAM    // call SETNAM
-    lda #$0F      // file number 15 
-    ldx $BA       // last used device number 
-    bne ef2skip 
-    ldx drive_number     // default to device 8 
-ef2skip:
-    ldy #$0F      // secondary address 15 
-    jsr KERNAL_SETLFS     // call SETLFS 
+    jsr KERNAL_SETNAM   // call SETNAM (Set command)
+    lda #$0F            // file number 15
+    ldx drive_number    // default to drive 8
+    ldy #$0F            // secondary address 15
+    jsr KERNAL_SETLFS   // call SETLFS
     jsr KERNAL_OPEN     // call OPEN
+
     jsr show_drive_status
-    bcc ef2_noerror     // if carry set, the file could not be opened 
-    // Accumulator contains BASIC error code 
-    // most likely errors: 
-    // A = $05 (DEVICE NOT PRESENT) 
-    // ... error handling for open errors ... 
+    bcc ef2_noerror
+
 ef2_noerror:
-    lda #$0F      // filenumber 15 
-    jsr $FFC3     // call CLOSE 
-    jsr $FFCC     // call CLRCHN
+    lda #$0f    // filenumber 15
+    jsr KERNAL_CLOSE
+    jsr KERNAL_CLRCHN
+
 ef_out:
     jsr presskey
     rts
 
 ef_text:
 .encoding "screencode_mixed"
-.text "ERASING "
+.text "ERASING"
 ef_text_end:
 ef_cmd:
 .text "S0:" // command string
-.byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+.byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 ef_cmd_end:
-    rts
 
 /////////////////////////////////////////////
 // Write Program
@@ -562,7 +595,7 @@ writeprogram:
 !sv:
     lda prg_filename,x
     beq !sv+
-    cmp #27 // convert petscii to screen code
+    cmp #27 // convert to petscii to screen code
     bcc cfn_dont_add_w
     sbc #$40
 cfn_dont_add_w:
@@ -571,7 +604,6 @@ cfn_dont_add_w:
     cpx #$10
     bne !sv-
 !sv:
-    // jsr displaydiskdata
     lda #$0f
     ldx drive_number
     ldy #$ff
@@ -580,17 +612,16 @@ cfn_dont_add_w:
     ldx #<prg_filename
     ldy #>prg_filename
     jsr KERNAL_SETNAM
-    lda #<prg_start // Set Start Address
+    lda #<prg_start // Set start address
     sta zp_pointer_lo
-    lda #>prg_start
+    lda #>prg_start //
     sta zp_pointer_hi
-    ldx #<prg_end // Set End Address
+    ldx #<prg_end // Set end address
     ldy #>prg_end
     lda #<zp_pointer_lo
     jsr KERNAL_SAVE
-    lda #13
-    jsr KERNAL_CHROUT
-    jsr KERNAL_CHROUT
+    PrintLF()
+    PrintLF()
     jsr show_drive_status
     jsr presskey
     rts
@@ -624,7 +655,6 @@ confirm_text:
 .byte 101,001,018,005,032,025,015,021,032,019,021,018,005,063,103
 .byte 076,111,111,111,111,111,111,111,111,111,111,111,111,111,122
 
-
 ////////////////////////////////////////////////////
 // Press Any Key
 
@@ -634,8 +664,15 @@ presskey:
     jsr KERNAL_WAIT_KEY
     beq !pk-
     rts
+
 dir_presskey_text:
 .encoding "petscii_upper"
 .byte $0d
 .text "PRESS ANY KEY"
 .byte 0
+
+
+
+
+
+
