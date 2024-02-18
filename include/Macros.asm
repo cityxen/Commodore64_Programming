@@ -177,8 +177,6 @@ usend:
 * = $0830 "init other things / vars / data"
 }
 
-
-
 .macro PrintString(string) {
     ldx #$00
 !pstr:
@@ -203,6 +201,19 @@ usend:
     sta 646
 }
 
+
+.macro PrintStrAtColor(x,y,str,color) {
+    lda #$0
+    sta 780
+    lda x
+    sta 781
+    lda y
+    sta 782
+    jsr 65520
+    PrintColor(color)
+    PrintString(string)
+}
+
 .macro zPrint(text) {
     lda #> text
     sta zp_tmp_hi 
@@ -220,3 +231,4 @@ usend:
 .macro PrintHexI() {
     jsr print_hex_inline
 }
+

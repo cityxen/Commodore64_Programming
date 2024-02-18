@@ -1,0 +1,7 @@
+.label wait_vbl=$828
+.label delay=$835
+.label delay3=$84a
+.label delay2=$83d
+.label main=$810
+.label delay_dark=$835
+.label wait_vbl2=$82d

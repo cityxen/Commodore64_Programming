@@ -1,0 +1,42 @@
+.label draw_drive_number=$870
+.label drive_number_text=$886
+.label displaydiskdata=$18f4
+.label skip2=$951
+.label screen_disk_tool=$1000
+.label filename=$17d3
+.label filename_length=$17e7
+.label mainloop=$88e
+.label dir_presskey_text=$9ab
+.label diskdata=$17e8
+.label anykey_text=$98b
+.label next=$94f
+.label save_saving=$adc
+.label getbyte=$99d
+.label end=$9a5
+.label start=$827 {
+}
+.label dirname=$9aa
+.label drive_number=$17d2
+.label dirname_end=$9ab
+.label init=$80d
+.label show_drive_status=$9ba
+.label exit=$979
+.label copydiskdata=$18e8
+.label viewdiskdata=$1900 {
+}
+.label sds_loop=$9db
+.label cfn_dont_add_s=$a8d
+.label cfn_dont_add_l=$a15
+.label char=$967
+.label load_loading=$a5c
+.label load_data=$9ed {
+}
+.label randomizediskdata=$1924
+.label sds_devnp=$9ec
+.label show_directory=$921 {
+}
+.label error=$979
+.label last_rand=$1938
+.label save_data=$a65 {
+}
+.label sds_eof=$9e8

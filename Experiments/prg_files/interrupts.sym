@@ -1,0 +1,2 @@
+.label init=$80d
+.label irq=$835
