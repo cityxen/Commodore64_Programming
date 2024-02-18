@@ -155,7 +155,7 @@ color_lbl:
 .macro CityXenUpstart() {
     
 .segment Main [allowOverlap]
-* = $0801 "BASIC"
+* = $0801 "BASIC Upstart"
 .word usend // link address
 .word 2024  // line num
 .byte $9e   // sys
@@ -169,7 +169,12 @@ color_lbl:
 usend:
 .byte 0
 .word 0  // empty link signals the end of the program
-* = $0830 "vars init"
+// THIS CODE IS FROM $0801 - $082C
+// The * directive below puts the code to $0830
+// well clear of any allowOverlap
+// If you modify this to change the BASIC Upstart
+// and add more characters keep this in mind
+* = $0830 "init other things / vars / data"
 }
 
 
