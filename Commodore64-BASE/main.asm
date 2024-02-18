@@ -29,9 +29,16 @@ irq1:
 .segment Main []
 //////////////////////////////////////////////////////////
 // START OF MAIN
-*=basic "basic"
-    BasicUpstart(main)
-*=main  "main"
+
+*=$0801 "BASIC"
+ :BasicUpstart($0815)
+*=$080a "cITYxEN wORDS"
+.byte $3a,99,67,73,84,89,88,69,78,99
+*=$0815 "MAIN PROGRAM"
+
+//*=basic "basic"
+//    BasicUpstart(main)
+//*=main  "main"
 jmp start
 #import "RetroDevLib-C64.asm"
 start:

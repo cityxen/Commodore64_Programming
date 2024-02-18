@@ -150,3 +150,68 @@ color_lbl:
     jmp sbr
 !check_joy:
 }
+
+
+.macro CityXenUpstart() {
+    
+.segment Main [allowOverlap]
+* = $0801 "BASIC"
+.word usend // link address
+.word 2024  // line num
+.byte $9e   // sys
+.text toIntString(start)
+.text ":"
+.byte $80 // end
+.text ":"
+.byte KEY_DELETE,KEY_DELETE,KEY_DELETE,KEY_DELETE,KEY_DELETE,KEY_DELETE,KEY_DELETE
+.byte KEY_DELETE,KEY_DELETE,KEY_DELETE,KEY_DELETE,KEY_DELETE,KEY_DELETE
+.text " -=*(CITYXEN)*=-"
+usend:
+.byte 0
+.word 0  // empty link signals the end of the program
+* = $0830 "vars init"
+}
+
+
+
+.macro PrintString(string) {
+    ldx #$00
+!pstr:
+    lda string,x
+    beq !pstr+
+    jsr KERNAL_CHROUT
+    inx
+    jmp !pstr-
+!pstr:
+}
+.macro PrintHOME() {
+    lda #KEY_HOME
+    jsr KERNAL_CHROUT
+}
+.macro PrintLF() {
+    lda #13
+    jsr KERNAL_CHROUT
+}
+
+.macro PrintColor(color) {
+    lda #color
+    sta 646
+}
+
+.macro zPrint(text) {
+    lda #> text
+    sta zp_tmp_hi 
+    lda #< text
+    sta zp_tmp_lo
+    jsr zprint
+}
+
+.macro PrintHex(xpos,ypos) {
+    ldx #xpos
+    ldy #ypos
+    jsr print_hex
+}
+
+.macro PrintHexI() {
+    jsr print_hex_inline
+}

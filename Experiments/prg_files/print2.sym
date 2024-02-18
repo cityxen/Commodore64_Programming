@@ -1,0 +1,14 @@
+.label calculate_color_pos=$8cd
+.label increment_screen_pos=$8ba
+.label print_hex=$843
+.label calculate_screen_pos=$890
+.label print_hex_no_calc=$84a
+.label increment_color_pos=$8f7
+.label textit=$92a
+.label start=$90a {
+}
+.label zprint=$830
+.label addto_color_pos=$8fe
+.label addto_screen_pos=$8c1
+.label print_hex_inline=$867
+.label print_hex_screencode_conversion_table=$880
