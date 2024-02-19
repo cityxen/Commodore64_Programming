@@ -4,7 +4,6 @@
 
 include folder contains files you can import to make programming the Commodore 64 easier.
 
-
 ## Commodore 64 Programming Series on YouTube
 
 Commodore 64 Programming Series on YouTube by CityXen https://youtube.com/CityXen
