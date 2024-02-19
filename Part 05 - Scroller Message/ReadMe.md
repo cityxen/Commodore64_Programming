@@ -4,10 +4,7 @@
 
 This is the git repo to accompany the youtube series: Commodore 64 Programming by CityXen https://www.youtube.com/c/CityXen
 
-Part 5: Horizontal Scroller Message, Multicolor Characters & Raster line changes
+### Part 5: Horizontal Scroller Message, Multicolor Characters & Raster line changes
+https://youtu.be/2EbZP9kp4zE
 
-https://www.youtube.com/watch?v=2EbZP9kp4zE
-
-Screen:
-
-![screen1](https://raw.githubusercontent.com/cityxen/Commodore64_Programming/master/Part5%20-%20Scroller%20Message/images/screen1.jpg)
+![p5](https://github.com/cityxen/Commodore64_Programming/blob/master/Part%2005%20-%20Scroller%20Message/images/C64ProgrammingSeries-ep5.jpg)

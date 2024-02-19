@@ -4,8 +4,7 @@
 
 This is the git repo to accompany the youtube series: Commodore 64 Programming by CityXen https://www.youtube.com/c/CityXen
 
-Part 3: Sinus Sprites
+### Part 3: Sinus Sprites
+https://youtu.be/-UmPO8koghQ
 
-https://www.youtube.com/watch?v=-UmPO8koghQ
-
-![screen1](https://raw.githubusercontent.com/cityxen/Commodore64_Programming/master/Part3%20-%20Sinus%20Sprites/images/screen1.jpg)
+![p3](https://github.com/cityxen/Commodore64_Programming/blob/master/Part%2003%20-%20Sinus%20Sprites/images/C64ProgrammingSeries-ep3.jpg)
