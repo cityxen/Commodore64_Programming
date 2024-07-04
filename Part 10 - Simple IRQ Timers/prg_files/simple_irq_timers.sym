@@ -1,0 +1,8 @@
+.label reset_timers=$84f
+.label start=$810
+.label irq_timer1=$885
+.label main=$82c
+.label irq_timer_trig2=$888
+.label irq_timer_trig1=$887
+.label irq_timer2=$886
+.label irq_timers=$85e

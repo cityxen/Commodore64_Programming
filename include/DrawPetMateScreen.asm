@@ -19,17 +19,21 @@
     sta 1024+256,x
     lda screen_name+2+512,x
     sta 1024+512,x
-    lda screen_name+2+512+256,x
-    sta 1024+512+256,x
     lda screen_name+1000+2,x
     sta COLOR_RAM,x // And now the colors
     lda screen_name+1000+2+256,x
     sta COLOR_RAM+256,x
     lda screen_name+1000+2+512,x
     sta COLOR_RAM+512,x
+    inx
+    bne !dpms_loop-
+    ldx #232
+!dpms_loop: // fix overwriting sprite pointers loop
+    dex
+    lda screen_name+2+512+256,x
+    sta 1024+512+256,x
     lda screen_name+1000+2+512+256,x
     sta COLOR_RAM+512+256,x
-    inx
     cpx #$00
     bne !dpms_loop-
     // Draw the Petmate Screen... END
