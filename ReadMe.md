@@ -63,3 +63,8 @@ https://www.youtube.com/watch?v=MUtG1zQOpFw
 https://www.youtube.com/watch?v=s6zRZKWNl7A
 
 ![p11](https://github.com/cityxen/Commodore64_Programming/blob/master/Part%2011%20-%20Funky%20BASIC%20Lines/images/C64PS-ep11.jpg)
+
+### Part 13: Sound Effects Using The Sound FX Kit
+https://youtu.be/Akea-PGkgBc
+
+![p13](https://github.com/cityxen/Commodore64_Programming/blob/master/Part%2013%20-%20Sound%20Effects%20Using%20Sound%20FX%20Kit/images/C64ProgrammingSeries-ep13.jpg)
