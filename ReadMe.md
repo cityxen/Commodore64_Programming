@@ -58,11 +58,15 @@ https://www.youtube.com/watch?v=MUtG1zQOpFw
 
 ![p10](https://github.com/cityxen/Commodore64_Programming/blob/master/Part%2010%20-%20Simple%20IRQ%20Timers/images/C64ProgrammingSeries-ep10.jpg)
 
-
 ### Part 11: Funky BASIC Lines
 https://www.youtube.com/watch?v=s6zRZKWNl7A
 
 ![p11](https://github.com/cityxen/Commodore64_Programming/blob/master/Part%2011%20-%20Funky%20BASIC%20Lines/images/C64PS-ep11.jpg)
+
+### Part 12: Long Text Scrollers (More than 256 Bytes)
+https://youtu.be/uI3EkZsTe9c
+
+![p12](https://github.com/cityxen/Commodore64_Programming/blob/master/Part%2012%20-%20Long%20Text%20Scrollers%20-%20Zero%20Page/images/C64ProgrammingSeries-ep12.jpg)
 
 ### Part 13: Sound Effects Using The Sound FX Kit
 https://youtu.be/Akea-PGkgBc
