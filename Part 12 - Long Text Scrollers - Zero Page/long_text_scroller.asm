@@ -10,7 +10,7 @@
 // Two sequential bytes of zero page required
 // Y register is used to offset the result
 // Example
-// lda ($fb,y)
+// lda ($fb),y // errata in vid it is lda ($fb,y)
 // $fb=$52
 // $fc=$34
 // y register=$03
@@ -157,7 +157,7 @@ color_table:
 .byte $ff
 
 // VARS
-color_cycle_timer:
-.byte 0
+// color_cycle_timer: // errata removed from vid version
+// .byte 0            // unneeded with demo shown
 color_table_position:
 .byte 0
