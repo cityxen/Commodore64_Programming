@@ -1,42 +1,42 @@
-.label draw_drive_number=$870
-.label drive_number_text=$886
+.label draw_drive_number=$875
+.label drive_number_text=$88b
 .label displaydiskdata=$18f4
-.label skip2=$951
+.label skip2=$956
 .label screen_disk_tool=$1000
 .label filename=$17d3
 .label filename_length=$17e7
-.label mainloop=$88e
-.label dir_presskey_text=$9ab
+.label mainloop=$893
+.label dir_presskey_text=$9b0
 .label diskdata=$17e8
-.label anykey_text=$98b
-.label next=$94f
-.label save_saving=$adc
-.label getbyte=$99d
-.label end=$9a5
+.label anykey_text=$990
+.label next=$954
+.label save_saving=$ae1
+.label getbyte=$9a2
+.label end=$9aa
 .label start=$827 {
 }
-.label dirname=$9aa
+.label dirname=$9af
 .label drive_number=$17d2
-.label dirname_end=$9ab
+.label dirname_end=$9b0
 .label init=$80d
-.label show_drive_status=$9ba
-.label exit=$979
+.label show_drive_status=$9bf
+.label exit=$97e
 .label copydiskdata=$18e8
 .label viewdiskdata=$1900 {
 }
-.label sds_loop=$9db
-.label cfn_dont_add_s=$a8d
-.label cfn_dont_add_l=$a15
-.label char=$967
-.label load_loading=$a5c
-.label load_data=$9ed {
+.label sds_loop=$9e0
+.label cfn_dont_add_s=$a92
+.label cfn_dont_add_l=$a1a
+.label char=$96c
+.label load_loading=$a61
+.label load_data=$9f2 {
 }
 .label randomizediskdata=$1924
-.label sds_devnp=$9ec
-.label show_directory=$921 {
+.label sds_devnp=$9f1
+.label show_directory=$926 {
 }
-.label error=$979
+.label error=$97e
 .label last_rand=$1938
-.label save_data=$a65 {
+.label save_data=$a6a {
 }
-.label sds_eof=$9e8
+.label sds_eof=$9ed

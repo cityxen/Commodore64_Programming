@@ -1,12 +1,11 @@
 .label mvover1=$85b
-.label color_cycle_timer=$b74
 .label start=$80d
 .label loop2=$829
 .label main=$822
 .label reset_colors=$884
-.label color_table_position=$b75
+.label color_table_position=$b9d
 .label mvlp223=$864
-.label color_table=$b65
+.label color_table=$b8e
 .label mvlp1=$843
 .label hello_message=$895
 .label reset_message=$88c

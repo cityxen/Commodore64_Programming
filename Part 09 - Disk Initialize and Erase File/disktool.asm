@@ -10,7 +10,6 @@
 #import "../include/Constants.asm"
 #import "../include/Macros.asm"
 #import "../include/DrawPetMateScreen.asm"
-#import "../include/PrintMacros.asm"
 
 *=$1800 "Screen"
 #import "disktool-program-screen.asm"

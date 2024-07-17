@@ -1,0 +1,9 @@
+.label loop_char_scroll=$83a
+.label loop_print_hello=$84b
+.label loop_timer_1=$874
+.label loop_timer_2=$877
+.label charset=$3000
+.label loop_crs_down=$830
+.label hello_message=$895
+.label loop_scroll_reg=$859
+.label loop_print_hello_start=$849

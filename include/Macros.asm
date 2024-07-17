@@ -152,7 +152,7 @@ color_lbl:
 }
 
 
-.macro CityXenUpstart() {
+.macro CityXenUpstart(start) {
     
 .segment Main [allowOverlap]
 * = $0801 "BASIC Upstart"
@@ -220,16 +220,16 @@ usend:
     sta zp_tmp_hi 
     lda #< text
     sta zp_tmp_lo
-    jsr zprint
+    // jsr zprint
 }
 
 .macro PrintHex(xpos,ypos) {
     ldx #xpos
     ldy #ypos
-    jsr print_hex
+    // jsr print_hex
 }
 
 .macro PrintHexI() {
-    jsr print_hex_inline
+    // jsr print_hex_inline
 }
 
