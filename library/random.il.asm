@@ -1,6 +1,6 @@
 
 
-random_init:
+random_init_sid:
     // Set up sid to produce random values
     lda #$FF  // maximum frequency value
     sta $D40E // voice 3 frequency low byte
@@ -9,6 +9,11 @@ random_init:
     sta $D412 // voice 3 control register
     rts
 
-lda_random:
+lda_random_sid:
     lda $d41b // lda with random number
+    rts
+
+lda_random_kern:
+    jsr $E097
+	lda $8f
     rts

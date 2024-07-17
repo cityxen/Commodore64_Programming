@@ -174,7 +174,8 @@ usend:
 // well clear of any allowOverlap
 // If you modify this to change the BASIC Upstart
 // and add more characters keep this in mind
-* = $0830 "init other things / vars / data"
+* = $0830 "vars and lib init"
+
 }
 
 .macro PrintString(string) {
@@ -202,7 +203,7 @@ usend:
 }
 
 
-.macro PrintStrAtColor(x,y,str,color) {
+.macro PrintStrAtColor(x,y,string,color) {
     lda #$0
     sta 780
     lda x
