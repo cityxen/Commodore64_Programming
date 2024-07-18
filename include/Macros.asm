@@ -224,9 +224,18 @@ usend:
 }
 
 .macro PrintHex(xpos,ypos) {
+
+    sta a_reg
+    stx x_reg
+    sty y_reg
+
+    lda a_reg
     ldx #xpos
     ldy #ypos
     jsr print_hex
+
+    ldx x_reg
+    ldy y_reg
 }
 
 .macro PrintHexI() {

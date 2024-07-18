@@ -11,7 +11,7 @@ ascii_to_petscii:
     cmp #$41          // Compare with 'A'
     bcc !+            // If less, return
     cmp #$7F          // Compare with 'DEL'
-    bcs return        // If greater or equal, return
+    bcs !+            // If greater or equal, return
     sbc #$5F          // Convert 'A-Z' & 'a-z' to PETSCII
 !:
     rts               // Return from subroutine
@@ -34,6 +34,7 @@ print_hex_inline:
 //
 //////////////////////////////////////////////////////////////////////////////////////
 
+print_hex_color: .byte 0
 print_hex:
     sta zp_tmp
     jsr calculate_screen_pos
@@ -48,7 +49,7 @@ print_hex_no_calc:
     lda print_hex_screencode_conversion_table,x
     ldx #$00
     sta (zp_ptr_screen,x)
-    lda #WHITE
+    lda print_hex_color
     sta (zp_ptr_color,x)
     lda zp_tmp
     and #$0f
@@ -58,7 +59,7 @@ print_hex_no_calc:
     ldx #$00
     sta (zp_ptr_screen,x)
     inc zp_ptr_color_lo
-    lda #WHITE
+    lda print_hex_color
     sta (zp_ptr_color,x)
     rts
 print_hex_screencode_conversion_table:
