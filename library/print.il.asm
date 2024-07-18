@@ -16,6 +16,17 @@ ascii_to_petscii:
 !:
     rts               // Return from subroutine
 
+ascii_to_petscii_kp: // (kernel print)
+    cmp #$41          // Compare with 'A'
+    bcc !+            // If less, return
+    cmp #$7F          // Compare with 'DEL'
+    bcs !+            // If greater or equal, return
+    sbc #$1f          // Convert 'A-Z' & 'a-z' to PETSCII
+!:
+    rts               // Return from subroutine
+
+//////////////////////////////////////////////////////////////////////////////////////
+// print_hex ??
 
 print_hex_inline:
     rts
@@ -23,7 +34,8 @@ print_hex_inline:
 //////////////////////////////////////////////////////////////////////////////////////
 // print_hex
 //////////////////////////////////////////////////////////////////////////////////////
-// Print 2 character HEX representation of a byte onto the screen at x,y location
+// POKE 2 character HEX representation of 
+// a byte onto the screen at x,y location
 //////////////////////////////////////////////////////////////////////////////////////
 // usage:
 // 
@@ -202,12 +214,11 @@ addto_color_pos:
     rts
 
 //////////////////////////////////////////////////////////////////////////////////////
-// string buffer data
+// reusable string buffer data
 
 strbuf:
 .fill 256,0
-buf_crsr:
-.byte 
+buf_crsr: .byte 0
 
 zprint:
     ldx #$00
@@ -232,3 +243,98 @@ zero_strbuf:
     bne !lp-
     stx buf_crsr
     rts
+
+.macro PrintASCII2Petscii(string) {
+    ldx #$00
+!pstr:
+    lda string,x
+    beq !pstr+
+    jsr ascii_to_petscii_kp
+    jsr KERNAL_CHROUT
+    inx
+    jmp !pstr-
+!pstr:
+}
+
+.macro PrintString(string) {
+    ldx #$00
+!pstr:
+    lda string,x
+    beq !pstr+
+    jsr KERNAL_CHROUT
+    inx
+    jmp !pstr-
+!pstr:
+}
+.macro PrintHOME() {
+    lda #KEY_HOME
+    jsr KERNAL_CHROUT
+}
+.macro PrintLF() {
+    lda #13
+    jsr KERNAL_CHROUT
+}
+
+.macro PrintColor(color) {
+    lda #color
+    sta 646
+}
+
+
+.macro PrintStrAtColor(x,y,string,color) {
+    lda #$0
+    sta 780
+    lda x
+    sta 781
+    lda y
+    sta 782
+    jsr 65520
+    PrintColor(color)
+    PrintString(string)
+}
+
+.macro zPrint(text) {
+    lda #> text
+    sta zp_tmp_hi 
+    lda #< text
+    sta zp_tmp_lo
+    jsr zprint
+}
+
+.macro PrintHex(xpos,ypos) {
+
+    sta a_reg
+    stx x_reg
+    sty y_reg
+
+    lda a_reg
+    ldx #xpos
+    ldy #ypos
+    jsr print_hex
+
+    ldx x_reg
+    ldy y_reg
+}
+
+.macro PrintHexC(xpos,ypos,color) {
+
+    sta a_reg
+    stx x_reg
+    sty y_reg
+
+    lda #color
+    sta print_hex_color
+
+    lda a_reg
+    ldx #xpos
+    ldy #ypos
+    jsr print_hex
+
+    ldx x_reg
+    ldy y_reg
+}
+
+.macro PrintHexI() {
+    jsr print_hex_inline
+}
+
