@@ -4,6 +4,18 @@
 // Deadline's C64 Assembly Language Library: PrintSubRoutines
 //////////////////////////////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////////////////////////////
+// convert ascii to petscii (from idolpx)
+
+ascii_to_petscii:
+    cmp #$41          // Compare with 'A'
+    bcc !+            // If less, return
+    cmp #$7F          // Compare with 'DEL'
+    bcs return        // If greater or equal, return
+    sbc #$5F          // Convert 'A-Z' & 'a-z' to PETSCII
+!:
+    rts               // Return from subroutine
+
 
 print_hex_inline:
     rts
@@ -21,6 +33,7 @@ print_hex_inline:
 //      jsr print_hex
 //
 //////////////////////////////////////////////////////////////////////////////////////
+
 print_hex:
     sta zp_tmp
     jsr calculate_screen_pos
@@ -65,6 +78,7 @@ print_hex_screencode_conversion_table:
 //////////////////////////////////////////////////////////////////////////////////////
 // Result: Stores screen location in zp_ptr_screen
 //////////////////////////////////////////////////////////////////////////////////////
+
 calculate_screen_pos: // x = xpos y = ypos
     lda #<SCREEN_RAM    // enter screen pos into zp
     sta zp_ptr_screen_lo
@@ -138,6 +152,7 @@ addto_screen_pos:
 //////////////////////////////////////////////////////////////////////////////////////
 // Result: Stores color location in zp_ptr_color
 //////////////////////////////////////////////////////////////////////////////////////
+
 calculate_color_pos: // x = xpos y = ypos
     lda #<COLOR_RAM    // enter color pos into zp
     sta zp_ptr_color_lo
@@ -185,11 +200,9 @@ addto_color_pos:
 !acp_exit:
     rts
 
-
-
-
 //////////////////////////////////////////////////////////////////////////////////////
 // string buffer data
+
 strbuf:
 .fill 256,0
 buf_crsr:
@@ -208,6 +221,7 @@ zprint:
 
 //////////////////////////////////////////////////////////////////////////////////////
 // zero string buffer
+
 zero_strbuf:
     lda #$00
     ldx #$00

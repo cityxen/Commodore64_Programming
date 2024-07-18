@@ -226,10 +226,10 @@ usend:
 .macro PrintHex(xpos,ypos) {
     ldx #xpos
     ldy #ypos
-    // jsr print_hex
+    jsr print_hex
 }
 
 .macro PrintHexI() {
-    // jsr print_hex_inline
+    jsr print_hex_inline
 }
 

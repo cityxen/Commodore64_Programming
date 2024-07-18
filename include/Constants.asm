@@ -288,3 +288,8 @@
 .const KEY_CURSOR_LEFT  = $9d
 .const KEY_CURSOR_RIGHT = $1d
 .const KEY_CLEAR        = $93
+
+
+
+.const J2_NONE = $7f
+.const JOY_NONE = $ff
