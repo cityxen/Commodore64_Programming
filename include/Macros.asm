@@ -177,3 +177,11 @@ usend:
 * = $0830 "vars and lib init"
 
 }
+
+
+.macro zp_str(x) {
+    lda #<x
+    sta zp_tmp_lo
+    lda #>x
+	sta zp_tmp_hi
+}
