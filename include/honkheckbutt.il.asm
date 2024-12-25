@@ -1,3 +1,5 @@
+//////////////////////////////////////////////////////////////////
+// CITYXEN COMMODORE 64 LIBRARY - https://linktr.ee/cityxen
 
 .const BUTTON_RED    = $FB
 .const BUTTON_GREEN  = $FE

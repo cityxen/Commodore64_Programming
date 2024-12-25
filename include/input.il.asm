@@ -1,7 +1,11 @@
+//////////////////////////////////////////////////////////////////
+// CITYXEN COMMODORE 64 LIBRARY - https://linktr.ee/cityxen
+
 ////////////////////////////////////////////////////////////
 // Keyboard
 k_value: 	.byte 0
 
+get_key:
 il_get_key: // subroutine
 	// lda trig_input // timer stuff
 	// beq !gb+
@@ -22,6 +26,7 @@ j1_left:	.byte 0
 j1_right:	.byte 0
 j1_button:	.byte 0
 
+get_j1_m2:
 il_get_j1_m2: // subroutine from https://codebase64.org/doku.php?id=base:joystick_input_handling
 	lda JOYSTICK_PORT_1 // read joystick port 1
 	lsr       // get switch bits
@@ -45,6 +50,7 @@ j2_left:   	.byte 0
 j2_right:  	.byte 0
 j2_button:	.byte 0
 
+get_j2_m2:
 il_get_j2_m2: // subroutine from https://codebase64.org/doku.php?id=base:joystick_input_handling
 	lda JOYSTICK_PORT_2 // read joystick port 2
 	lsr       // get switch bits
@@ -64,6 +70,7 @@ il_get_j2_m2: // subroutine from https://codebase64.org/doku.php?id=base:joystic
 
 i_compare: .byte 0
 
+get_any_input:
 il_get_any_input: // subroutine
 
     lda #$00;
@@ -142,30 +149,31 @@ il_get_any_input: // subroutine
     
     rts
 
+/*
 ////////////////////////////////////////////////////
 // Input Text
 
 .var il_input_text                = $450 // (Screen RAM Location) 16 bytes
-.var il_input_text_color          = $d850
+//.var il_input_text_color          = $d850
 .var il_input_text_buffer         = $cfe0
 .var il_input_text_buffer_end     = $cfd2
 .var il_input_text_cursor         = $cfd3
 .var il_input_text_length         = $cfd4
 
+
 .macro InputText(x,y) {
-    .eval il_input_text= 1024+(y*40+x)
+    // .eval il_input_text= 1024+(y*40+x)
 	jsr input_text
 }
 
 input_text:
-    
     ldx #$00 // Reverse the editing area
 il_it_reverse:
     lda il_input_text,x
     ora #$80
     sta il_input_text,x
-    lda #$01
-    sta il_input_text_color,x
+    //lda #$01
+    //sta il_input_text_color,x
     inx
     cpx #$10
     bne il_it_reverse
@@ -221,6 +229,8 @@ il_it_kb_num:
     inc il_input_text_cursor
     jmp il_it_kb_chk
 il_it_kb_chk_end:
+    lda #$00
+    sta il_input_text_cursor
     ldx #00
 il_it_rereverse:   // Done editing, re-reverse all the characters
     lda il_input_text,x
@@ -241,4 +251,178 @@ il_it_trim:
     dex
     jmp il_it_trim
 il_it_out:
+    rts
+
+
+*/
+
+////////////////////////////////////////////////////
+// Input Text (method 2) (Up to 32 Bytes)
+
+il_it2_txt_scr:
+il_it2_txt_scr_lo:  .byte $00 // (Screen RAM Location)
+il_it2_txt_scr_hi:  .byte $04 // (Screen RAM Location)
+il_it2_txt_loc:
+il_it2_txt_loc_lo:  .byte $00 // (String BUFFER Location)
+il_it2_txt_loc_hi:  .byte $00 // (String BUFFER Location)
+il_it2_txt_color_val: .byte $01 // Actual color
+il_it2_txt_color:  
+il_it2_txt_color_lo:.byte $00 // Color RAM
+il_it2_txt_color_hi:.byte $d8 // Color RAM
+il_it2_txt_len:     .byte $20 // Length of string
+
+il_it2_buffer: 
+.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+il_it2_buffer_end:
+.byte 0
+il_it2_cursor:  .byte 0
+
+.macro InputText2(original_str,len,x,y,color) {
+
+    lda #<(55296+x+y*40)
+    sta il_it2_txt_color_lo
+    lda #>(55296+x+y*40)
+    sta il_it2_txt_color_hi
+
+    lda #len
+    sta il_it2_txt_len
+
+    lda #<(1024+x+y*40)
+    sta il_it2_txt_scr_lo
+    lda #>(1024+x+y*40)
+    sta il_it2_txt_scr_hi
+
+    lda #color
+    lda #WHITE
+    sta il_it2_txt_color_val
+
+    lda #<original_str
+    sta il_it2_txt_loc_lo
+    lda #>original_str
+    sta il_it2_txt_loc_hi
+	jsr input_text2
+}
+
+input_text2:
+
+    //////////////////////////////////
+    // Populate zero page pointers
+    // zp_ptr_screen
+    // zp_ptr_color
+    // zp_ptr_2
+
+    lda il_it2_txt_loc_lo
+    sta zp_ptr_2_lo
+    lda il_it2_txt_loc_hi
+    sta zp_ptr_2_hi
+
+    lda il_it2_txt_scr_lo
+    sta zp_ptr_screen_lo
+    lda il_it2_txt_scr_hi
+    sta zp_ptr_screen_hi
+
+    lda il_it2_txt_color_lo
+    sta zp_ptr_color_lo
+    lda il_it2_txt_color_hi
+    sta zp_ptr_color_hi
+
+    ldy #$00 // Reverse the editing area
+
+il_it2_reverse:
+    lda il_it2_txt_color_val
+    sta (zp_ptr_color),y    
+    lda (zp_ptr_2),y
+    cmp #$ff
+    bne !+
+    lda #$20
+!:
+    ora #$80
+    sta (zp_ptr_screen),y
+    iny
+    cpy il_it2_txt_len
+    bne il_it2_reverse
+
+il_it2_kb_chk: // Check Keyboard loop
+    clc
+    lda $a2
+    cmp #$10
+    bcc il_it2_kb_chk_no_crs
+    ldy il_it2_cursor
+    lda (zp_ptr_screen),y
+    cmp #$80
+    bcs il_it2_kb_chk_crs_not_revd
+    ora #$80
+    sta (zp_ptr_screen),y
+    jmp il_it2_kb_chk_no_crs
+il_it2_kb_chk_crs_not_revd:
+    and #$7f
+    sta (zp_ptr_screen),y
+il_it2_kb_chk_no_crs: // End of flash cursor stuff
+    ldy il_it2_cursor
+    cpy il_it2_txt_len
+    bcc il_it2_kb_not_too_long
+    ldy il_it2_txt_len
+    dey
+    sty il_it2_cursor
+il_it2_kb_not_too_long:
+    jsr KERNAL_GETIN
+    cmp #$00
+    beq il_it2_kb_chk
+    cmp #13
+    beq il_it2_kb_chk_end
+    cmp #20
+    bne il_it2_kb_chk_not_del
+    ldy #il_it2_cursor
+    cpy #$00
+    beq il_it2_kb_chk_del_first_pos
+    lda #$a0
+    ldy il_it2_cursor
+    sta (zp_ptr_screen),y
+    sta (zp_ptr_2),y
+    dec il_it2_cursor
+    jmp il_it2_kb_chk
+il_it2_kb_chk_del_first_pos:
+    lda #$a0
+    ldy #$00
+    sta (zp_ptr_screen),y
+    sta (zp_ptr_2),y
+    jmp il_it2_kb_chk
+il_it2_kb_chk_not_del:
+    cmp #64
+    bcc il_it2_kb_num
+    sbc #64
+il_it2_kb_num:
+    ora #$80
+    ldy il_it2_cursor
+    sta (zp_ptr_screen),y
+    sta (zp_ptr_2),y
+    inc il_it2_cursor
+    jmp il_it2_kb_chk
+il_it2_kb_chk_end:
+    lda #$00
+    sta il_it2_cursor
+    ldy #00
+il_it2_rereverse:   // Done editing, re-reverse all the characters
+    lda (zp_ptr_screen),y
+    and #$7f
+    sta (zp_ptr_screen),y
+    sta (zp_ptr_2),y
+    iny
+    cpy il_it2_txt_len
+    bne il_it2_rereverse
+    ldy #$00
+    ldy #$0f // fill in spaces on end with 0 (start at end and work backward)
+il_it2_trim:
+    lda (zp_ptr_2),y
+    cmp #$ff
+    beq !+
+    cmp #$20
+    bne il_it2_out
+!:
+    lda #00
+    sta (zp_ptr_2),y
+    dey
+    jmp il_it2_trim
+il_it2_out:
     rts

@@ -1,10 +1,7 @@
-//////////////////////////////////////////////////////////////////////////////////////
-// CityXen - https://linktr.ee/cityxen
-//////////////////////////////////////////////////////////////////////////////////////
-// Deadline's C64 Assembly Language Library: Constants
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+// CITYXEN COMMODORE 64 LIBRARY - https://linktr.ee/cityxen
 
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 // Various Memory Constants
 .const SECONDARY_ADDRESS    = $B9
 .const DEVICE_NUMBER        = $BA
@@ -31,9 +28,9 @@
 .const zp_ptr_screen        = $60
 .const zp_ptr_screen_lo     = $60
 .const zp_ptr_screen_hi     = $61
-.const zp_ptr_color         = $62
-.const zp_ptr_color_lo      = $62
-.const zp_ptr_color_hi      = $63
+.const zp_ptr_color         = $a3
+.const zp_ptr_color_lo      = $a3
+.const zp_ptr_color_hi      = $a4
 .const zp_point_tmp         = $59
 .const zp_point_tmp_lo      = $59
 .const zp_point_tmp_hi      = $5a
@@ -44,12 +41,12 @@
 .const zp_temp2             = $a4
 .const zp_temp3             = $a5
 .const JOYPORT_TIMER        = $05
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 // VARIOUS STUFF
 .const ZP_DATA_DIRECTION    = $00
 .const ZP_IO_REGISTER       = $01
 .const KERNAL_STOP_VECTOR   = $0328
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 // SPRITE POINTERS
 .const SPRITE_POINTERS      = $7F8
 .const SPRITE_0_POINTER     = $7F8
@@ -60,7 +57,7 @@
 .const SPRITE_5_POINTER     = $7FD
 .const SPRITE_6_POINTER     = $7FE
 .const SPRITE_7_POINTER     = $7FF
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 // VIC CONSTANTS
 .const SPRITE_LOCATIONS     = $D000
 .const SPRITE_0_X           = $D000 // 53248 SP0X Sprite 0 Horizontal Position
@@ -112,11 +109,11 @@
 .const SPRITE_5_COLOR       = $D02C
 .const SPRITE_6_COLOR       = $D02D
 .const SPRITE_7_COLOR       = $D02E
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 // IO CONSTANTS
 .const JOYSTICK_PORT_2      = $DC00
 .const JOYSTICK_PORT_1      = $DC01
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 // SID CONSTANTS
 .const SID_V1_FREQ_LOW      = $D400 // (54272) frequency voice 1 low byte
 .const SID_V1_FREQ_HIGH     = $D401 // (54273) frequency voice 1 high byte
@@ -147,11 +144,11 @@
 .const PADDLE_Y             = $D41A // (54298) paddle y value (read only)
 .const SID_OSCILLATOR_V3    = $D41B // (54299) oscillator voice 3 (read only)
 .const SID_ENVELOPE_V3      = $D41C // (54300) envelope voice 3 (read only)
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 // User Port Stuff
 .const USER_PORT_DATA       = $DD01 // User Port Data
 .const USER_PORT_DATA_DIR   = $DD03 // User Port Data Direction per bit 1 = talk 0 = listen
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 // 1541 Ultimate II Command Interface
 .const UII_CONTROL          = $DF1C // CONTROL REGISTER (WRITE)
 .const UII_STATUS           = $DF1C // STATUS REGISTER (READ) $00
@@ -159,15 +156,15 @@
 .const UII_ID               = $DF1D // IDENTIFICATION REGISTER (READ) $C9
 .const UII_RESPONSE         = $DF1E // RESPONSE DATA REGISTER (READ ONLY)
 .const UII_STATUS_DATA      = $DF1F // STATUS DATA REGISTER
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 // KERNAL SUB ROUTINES
 .const KERNAL_PRINT_HEX     = $BDCD // Print 16 bit number to screen LDX lobyte LDA hibyte
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 // OTHER KERNAL STUFF
 .const CURSOR_SET           = $E510
 .const KERNAL_CLEAR_SCREEN  = $E544 // Clear Screen
 .const KERNAL_IRQ_ENTRY     = $EA31
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 // Serial BUS
 .const SERIAL_TALK          = $ED09 // Send TALK command to serial bus. Input: A = Device number.
 .const SERIAL_LISTEN        = $ED0C // Send LISTEN command to serial bus. Input: A = Device number.
@@ -183,7 +180,7 @@
 .const SERIAL_DATA_OUT_HIGH = $EE97	// Set DATA OUT to high.
 .const SERIAL_DATA_OUT_LOW  = $EEA0	// Set DATA OUT to low.
 .const SERIAL_CLOCK_DATA_IN = $EEA9	// Read CLOCK IN and DATA IN. Output: Carry = DATA IN; Negative = CLOCK IN; A = CLOCK IN (in bit #7).
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 // KERNAL SUB ROUTINES
 .const KERNAL_WAIT_KEY      = $F142 // Wait for key
 .const KERNAL_SCINIT        = $FF81 // Input: – Output: – Used registers: A, X, Y
@@ -227,7 +224,7 @@
 .const KERNAL_SCREEN        = $FFED // Input: – Output: X = Number of columns (40); Y = Number of rows (25) Used registers: X, Y
 .const KERNAL_PLOT          = $FFF0 // Input: Carry: 0 = Restore from input, 1 = Save to output; X = Cursor column (if Carry = 0); Y = Cursor row (if Carry = 0) Output: X = Cursor column (if Carry = 1); Y = Cursor row (if Carry = 1) Used registers: X, Y
 .const KERNAL_IOBASE        = $FFF3 // Input: – Output: X/Y = CIA #1 base address ($DC00) Used registers: X, Y
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 // KEYS (This is not MATRIX codes)
 .const KEY_RETURN       = $0d
 .const KEY_HOME         = $13
@@ -289,7 +286,22 @@
 .const KEY_CURSOR_RIGHT = $1d
 .const KEY_CLEAR        = $93
 
-
+.const KEY_BLACK    = 144
+.const KEY_WHITE    = 5
+.const KEY_RED      = 28
+.const KEY_CYAN     = 159
+.const KEY_VIOLET   = 156
+.const KEY_GREEN    = 30
+.const KEY_BLUE     = 31
+.const KEY_YELLOW   = 158
+.const KEY_ORANGE   = 129
+.const KEY_BROWN    = 149
+.const KEY_LT_RED   = 150
+.const KEY_DK_GREY  = 151
+.const KEY_GREY     = 152
+.const KEY_LT_GREEN = 153
+.const KEY_LT_BLUE  = 154
+.const KEY_LT_GREY  = 155
 
 .const J2_NONE = $7f
 .const JOY_NONE = $ff

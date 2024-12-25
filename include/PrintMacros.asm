@@ -1,3 +1,5 @@
+//////////////////////////////////////////////////////////////////
+// CITYXEN COMMODORE 64 LIBRARY - https://linktr.ee/cityxen
 
 .macro PrintASCII2Petscii(string) {
     ldx #$00
@@ -56,6 +58,18 @@
     jsr zprint
 }
 
+.macro zPrintXY(text,x,y) {
+    ldx #y
+    ldy #x
+    clc
+    jsr KERNAL_PLOT
+    lda #> text
+    sta zp_tmp_hi 
+    lda #< text
+    sta zp_tmp_lo
+    jsr zprint
+}
+
 .macro PrintHex(xpos,ypos) {
 
     sta a_reg
@@ -93,3 +107,17 @@
     jsr print_hex_inline
 }
 
+.macro ConvertA2P(string,len) {
+    ldx #$00
+!:
+    lda string,x
+    beq !+
+    jsr screencode_to_kernel // ascii_to_petscii_kp
+    sta string,x
+    inc string,x
+    inx
+    cpx #len
+    bne !-
+!:
+
+}
