@@ -307,3 +307,51 @@
 
 .const J2_NONE = $7f
 .const JOY_NONE = $ff
+
+
+///////////////////////////////////////
+// Floating Point Arithmetic Stuff
+.const CONUPK = $BA8C // 47756 Fill ARG with number from memory (A=Adr.LB, Y=Adr.HB). Then, in preparation for subsequent operations, compares the signs of ARG and FAC and writes the result to address $6F ($00: if signs are the same, $80: if signs are different), and loads the exponent from FAC to A (sets zero flag when FAC equals zero). The routines FADDT , FDIVT , FMULTT and FPWRT require this preparation.
+.const MOVEF  =	$BBFC // 48124 Copy a number currently in ARG, over into FAC
+.const MOVFA  = $BC0F // 48143 Copy a number currently in FAC, over into ARG
+.const MOVFM  = $BBA2 // 48034 Fetch a number from a RAM location to FAC (A=Addr.LB, Y=Addr.HB)
+.const MOVMF  = $BBD4 // 48084 Store the number currently in FAC, to a RAM location. Uses X and Y rather than A and Y to point to RAM. (X=Addr.LB, Y=Addr.HB)
+// Routines for converting between floating point and other formats
+.const FACINX = $B1AA // 45482 Convert number in FAC to 16-bit signed integer (Y=LB, A=HB).
+.const FIN    = $BCF3 // 48371 Convert number expressed as a zero-terminated PETSCII string, to floating point number in FAC. Expects string-address in $7a/$7b, and to make it work either call CHRGOT ($0079) beforehand or load the accumulator with the first char of the string and clear the carry-flag manually.
+.const STRVAL = $B7B5 // 47029 Convert numerical PETSCII-string to floating point number in FAC. Expects string-address in $22/$23 and length of string in accumulator.
+.const FOUT   = $BDDD // 48605 Convert number in FAC to a zero-terminated PETSCII string (starting at $0100, address in A, Y too). Direct output of FAC also via $AABC/43708 possible.
+.const GIVAYF = $B391 // 45969 Convert 16-bit signed integer to floating point number in FAC. Expects lowbyte in Y- and highbyte in A-register.
+.const QINT   = $BC9B // 48283 Convert number in FAC to 32-bit signed integer ($62-$65, big-endian order).
+// Routines for performing calculations
+.const FABS   = $BC58 // 48216 Performs the ABS function on the number in FAC
+.const FATN   = $E30E // 58126 Performs the ATN function on the number in FAC
+.const FCOS   = $E264 // 57956 Performs the COS function on the number in FAC
+.const FMUL10 = $BAE2 // 47842 Multiply the number held in FAC by 10.
+.const FDIV10 = $BAFE // 47870 Divide the number held in FAC by 10. Ignores the sign of the number in FAC, the result is always positive.
+.const FEXP   = $BFED // 49133 Performs the EXP function on the number in FAC
+.const FADD   = $B867 // 47207 Adds the number in FAC with one stored in RAM (A=Addr.LB, Y=Addr.HB)
+.const FADDT  = $B86A // 47210 Adds the numbers in FAC and ARG
+.const FDIV   = $BB0F // 47887 Divides a number stored in RAM by the number in FAC (A=Addr.LB, Y=Addr.HB)
+.const FDIVT  = $BB12 // 47890 Divides the number in ARG by the number in FAC. Sign comparison is not performed and ARISGN byte at $6f is not set, which has to be accounted for when using this entry point. Sign errors may occur otherwise.
+.const FMULT  = $BA28 // 47656 Multiplies a number from RAM and FAC (clobbers ARG, A=Addr.LB, Y=Addr.HB)
+.const FPWR   = $BF78 // 49016 Raises a number stored ín RAM to the power in FAC (A=Addr.LB, Y=Addr.HB)
+.const FPWRT  = $BF7B // 49019 Raises the number in ARG to the power in FAC
+.const FSUB   = $B850 // 47184 Subtracts the number in FAC from one stored in RAM (A=Addr.LB, Y=Addr.HB)
+.const FSUBT  = $B853 // 47187 Subtracts the number in FAC from the number in ARG
+.const F2INT  = $BCCC // 48332 Performs the INT function on the number in FAC
+.const FLOG   = $B9EA // 47594 Performs the LOG function on the number in FAC
+.const NEGOP  = $BFB4 // 49076 Switches sign on the number in FAC, if non-zero
+.const POLY1  = $E043 // 57411 Evaluates a polynomial with odd powers only, for the value given in FAC
+.const POLY2  = $E059 // 57433 Evaluates a polynomial with odd and even powers, for the value given in FAC
+.const FSIN   = $E26B // 57963 Performs the SIN function on the number in FAC
+.const FSGN   = $BC39 // 48185 Performs the SGN function on the number in FAC
+.const FSQR   = $BF71 // 49009 Performs the SQR function on the number in FAC
+.const FTAN   = $E2B4 // 58036 Performs the TAN function on the number in FAC
+// Routines for comparing numbers
+.const FCOMP  = $BC5B // 48219 Compares the number in FAC against one stored in RAM (A=Addr.LB, Y=Addr.HB). The result of the comparison is stored in A: Zero (0) indicates the values were equal.
+                      // One (1) indicates FAC was greater than RAM and
+                      // negative one (-1 or $FF) indicates FAC was less than RAM.
+                      // Also sets processor flags (N,Z) depending on whether the number in FAC is zero, positive or negative
+.const FSIGN  = $BC2B // 48171 Sets processor flags (N,Z) depending on whether the number in FAC is zero, positive or negative
+
