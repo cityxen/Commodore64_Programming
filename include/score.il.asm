@@ -128,7 +128,7 @@ score_add:
 
 score_sub:
 
-    sed // reverse these and work backward
+    sed
 
     sec
     lda score
