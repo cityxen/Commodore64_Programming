@@ -31,12 +31,15 @@
     lda #13
     jsr KERNAL_CHROUT
 }
+.macro PrintSPC() {
+    lda #$20
+    jsr KERNAL_CHROUT
+}
 
 .macro PrintColor(color) {
     lda #color
     sta 646
 }
-
 
 .macro PrintStrAtColor(x,y,string,color) {
     lda #$0
@@ -51,11 +54,30 @@
 }
 
 .macro zPrint(text) {
-    lda #> text
-    sta zp_tmp_hi 
     lda #< text
     sta zp_tmp_lo
+    lda #> text
+    sta zp_tmp_hi 
+    
     jsr zprint
+}
+
+.macro PrintSTZ(text) {
+    lda #< text
+    sta zp_tmp_lo
+    lda #> text
+    sta zp_tmp_hi 
+    jsr zprint
+}
+
+
+.macro PrintNZ(text) {
+    lda #< text
+    sta zp_tmp_lo
+    lda #> text
+    sta zp_tmp_hi 
+
+    jsr nzprint
 }
 
 .macro zPrintXY(text,x,y) {
@@ -107,6 +129,34 @@
     jsr print_hex_inline
 }
 
+.macro PrintHexI_Range(mem,len) {
+
+    sta a_reg
+    stx x_reg
+    sty y_reg
+
+    lda #'$'
+    jsr KERNAL_CHROUT
+    lda #mem
+    PrintHexI()
+    lda #':'
+    jsr KERNAL_CHROUT
+
+    ldx #$00
+!:
+    lda mem,x
+    PrintHexI()
+    PrintSPC()
+    inx
+    cpx #len
+    bne !-
+    
+    lda a_reg
+    ldx x_reg
+    ldy y_reg
+
+}
+
 .macro ConvertA2P(string,len) {
     ldx #$00
 !:
@@ -120,4 +170,14 @@
     bne !-
 !:
 
+}
+
+.macro StrCpy(str_from,str_to,len) {
+    ldx #$00
+!:
+    lda str_from,x
+    sta str_to,x
+    inx
+    cpx #len
+    bne !-
 }

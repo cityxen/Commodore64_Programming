@@ -153,7 +153,7 @@ color_lbl:
 
 .macro CityXenUpstart(start) {
     
-.segment Main [allowOverlap]
+// .segment Main [allowOverlap]
 * = $0801 "BASIC Upstart"
 .word usend // link address
 .word 2025  // line num (Current Year)

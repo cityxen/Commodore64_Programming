@@ -31,7 +31,26 @@ screencode_to_kernel:
 // print_hex ??
 
 print_hex_inline:
+    sta zp_tmp
+    lda #'$'
+    jsr KERNAL_CHROUT
+    lda zp_tmp
+    lsr
+    lsr
+    lsr
+    lsr
+    tax
+    lda print_hex_inline_conversion_table,x
+    jsr KERNAL_CHROUT
+    lda zp_tmp
+    and #$0f
+    tax
+    lda print_hex_inline_conversion_table,x
+    inc zp_ptr_screen_lo
+    jsr KERNAL_CHROUT
     rts
+print_hex_inline_conversion_table:
+.byte $30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$41,$42,$43,$44,$45,$46
 
 //////////////////////////////////////////////////////////////////
 // print_hex
@@ -76,6 +95,7 @@ print_hex_no_calc:
     lda print_hex_color
     sta (zp_ptr_color,x)
     rts
+
 print_hex_screencode_conversion_table:
 .byte $30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$01,$02,$03,$04,$05,$06
 
@@ -218,47 +238,85 @@ addto_color_pos:
 //////////////////////////////////////////////////////////////////
 // reusable string buffer data
 
-strbuf:
-.fill 256,0
-buf_crsr: .byte 0
+//strbuf:.fill 256,0buf_crsr: .byte 0
 
 zprint:
+    clc
     ldx #$00
-!wl:
+!zp:
     lda (zp_tmp,x)
-    beq !wl+
+    beq !zp+
     jsr $ffd2
     inc zp_tmp_lo
-    jmp !wl-
-!wl:
-    rts
-
-//////////////////////////////////////////////////////////////////
-// zero string buffer
-
-zero_strbuf:
-    lda #$00
-    ldx #$00
-!lp:
-    sta strbuf,x
-    inx
-    bne !lp-
-    stx buf_crsr
-    rts
-
-//////////////////////////////////////////////////////////////////
-// zero string buffer
-
-.macro StrCpy(str_from,str_to,len) {
-    ldx #$00
+    bne !+
+    inc zp_tmp_hi
 !:
-    lda str_from,x
-    sta str_to,x
-    inx
-    cpx #len
-    bne !-
-}
-
-p_str_cpy:
-
+    jmp !zp-
+!zp:
     rts
+
+nzprint: // print without leading zero pad
+
+    clc
+
+    lda #$00
+    sta zpnzp_c
+
+nzp1:
+!wl:
+    ldy #$00
+    lda (zp_tmp),y
+    bne !wl+
+    lda zpnzp_c
+    bne !+
+    lda #$30
+    jsr $ffd2
+!:
+    rts
+!wl:
+    tax
+    cpx #$30
+    bne wlz
+
+    iny
+    clc
+    lda (zp_tmp),y
+    beq wlz
+
+    lda zpnzp_c
+    bne wlz
+    jmp wlyz
+
+wlz:
+    txa
+    jsr $ffd2
+    inc zpnzp_c
+wlyz:
+    inc zp_tmp_lo
+    bne !+
+    inc zp_tmp_hi
+!:
+    jmp nzp1
+
+
+zpnzp_c: .byte 0
+
+//////////////////////////////////////////////////////////////////
+// zero string buffer
+
+// zero_strbuf:
+//    lda #$00
+//    ldx #$00
+//!lp:
+//    sta strbuf,x
+//    inx
+//    bne !lp-
+//    stx buf_crsr
+//    rts
+
+//////////////////////////////////////////////////////////////////
+// zero string buffer
+
+
+
+// p_str_cpy:     rts
