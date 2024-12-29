@@ -1,5 +1,40 @@
 //////////////////////////////////////////////////////////////////
-// CITYXEN COMMODORE 64 LIBRARY - https://linktr.ee/cityxen
+// CITYXEN COMMODORE 64 LIBRARY
+// 
+// https://github.com/cityxen/Commodore64_Programming
+//
+// https://linktr.ee/cityxen
+//
+
+.macro WaitKey() {
+!:
+    jsr KERNAL_GETIN
+    beq !-
+}
+
+.macro KeySub(key,subroutine) {
+    cmp #key
+    bne !+
+    jsr subroutine
+    jmp main_loop
+!:
+}
+
+.macro KeySubNoMain(key,subroutine) {
+    cmp #key
+    bne !+
+    jsr subroutine
+!:
+}
+
+.macro KeySubWait(key,subroutine) {
+    cmp #key
+    bne !+
+    jsr subroutine
+    WaitKey()
+    jmp main_loop
+!:
+}
 
 ////////////////////////////////////////////////////////////
 // Keyboard
@@ -148,113 +183,6 @@ il_get_any_input: // subroutine
     sta i_compare
     
     rts
-
-/*
-////////////////////////////////////////////////////
-// Input Text
-
-.var il_input_text                = $450 // (Screen RAM Location) 16 bytes
-//.var il_input_text_color          = $d850
-.var il_input_text_buffer         = $cfe0
-.var il_input_text_buffer_end     = $cfd2
-.var il_input_text_cursor         = $cfd3
-.var il_input_text_length         = $cfd4
-
-
-.macro InputText(x,y) {
-    // .eval il_input_text= 1024+(y*40+x)
-	jsr input_text
-}
-
-input_text:
-    ldx #$00 // Reverse the editing area
-il_it_reverse:
-    lda il_input_text,x
-    ora #$80
-    sta il_input_text,x
-    //lda #$01
-    //sta il_input_text_color,x
-    inx
-    cpx #$10
-    bne il_it_reverse
-il_it_kb_chk: // Check Keyboard loop
-    clc
-    lda $a2
-    cmp #$10
-    bcc il_it_kb_chk_no_crs
-    ldx il_input_text_cursor
-    lda il_input_text,x
-    cmp #$80
-    bcs il_it_kb_chk_crs_not_revd
-    ora #$80
-    sta il_input_text,x
-    jmp il_it_kb_chk_no_crs
-il_it_kb_chk_crs_not_revd:
-    and #$7f
-    sta il_input_text,x
-il_it_kb_chk_no_crs: // End of flash cursor stuff
-    ldx il_input_text_cursor
-    cpx #$10
-    bne il_it_kb_not_too_long
-    ldx #$0f
-    stx il_input_text_cursor
-il_it_kb_not_too_long:
-    jsr KERNAL_GETIN
-    cmp #$00
-    beq il_it_kb_chk
-    cmp #13
-    beq il_it_kb_chk_end
-    cmp #20
-    bne il_it_kb_chk_not_del
-    ldx il_input_text_cursor
-    cpx #$00
-    beq il_it_kb_chk_del_first_pos
-    lda #$a0
-    ldx il_input_text_cursor
-    sta il_input_text,x
-    dec il_input_text_cursor
-    jmp il_it_kb_chk
-il_it_kb_chk_del_first_pos:
-    lda #$a0
-    sta il_input_text
-    jmp il_it_kb_chk
-il_it_kb_chk_not_del:
-    cmp #64
-    bcc il_it_kb_num
-    sbc #64
-il_it_kb_num:
-    ora #$80
-    ldx il_input_text_cursor
-    sta il_input_text,x
-    inc il_input_text_cursor
-    jmp il_it_kb_chk
-il_it_kb_chk_end:
-    lda #$00
-    sta il_input_text_cursor
-    ldx #00
-il_it_rereverse:   // Done editing, re-reverse all the characters
-    lda il_input_text,x
-    and #$7f
-    sta il_input_text,x
-    sta il_input_text_buffer,x
-    inx
-    cpx #$10
-    bne il_it_rereverse
-    ldx #$00
-    ldx #$0f // fill in spaces on end with 0 (start at end and work backward)
-il_it_trim:
-    lda il_input_text_buffer,x
-    cmp #$20
-    bne il_it_out
-    lda #00
-    sta il_input_text_buffer,x
-    dex
-    jmp il_it_trim
-il_it_out:
-    rts
-
-
-*/
 
 ////////////////////////////////////////////////////
 // Input Text (method 2) (Up to 32 Bytes)

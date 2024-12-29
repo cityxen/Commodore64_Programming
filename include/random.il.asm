@@ -1,5 +1,10 @@
 //////////////////////////////////////////////////////////////////
-// CITYXEN COMMODORE 64 LIBRARY - https://linktr.ee/cityxen
+// CITYXEN COMMODORE 64 LIBRARY
+// 
+// https://github.com/cityxen/Commodore64_Programming
+//
+// https://linktr.ee/cityxen
+//
 
 random_init_sid:
     // Set up sid to produce random values

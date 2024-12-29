@@ -1,5 +1,10 @@
 //////////////////////////////////////////////////////////////////
-// CITYXEN COMMODORE 64 LIBRARY - https://linktr.ee/cityxen
+// CITYXEN COMMODORE 64 LIBRARY
+// 
+// https://github.com/cityxen/Commodore64_Programming
+//
+// https://linktr.ee/cityxen
+//
 
 score: // Bytes of the score in BCD
 // LSB --------------- MSB
@@ -9,6 +14,15 @@ score_str: .text "0000000000" // String of the score
            .byte 0 
 score_digits:   .byte $09  // num of digits to display (default is 10)
 score_math_o:   .byte $00  // Math Val
+
+
+.macro DrawScore(x,y) {
+	clc    // Set cursor position
+	ldy #x // X coordinate (column)
+	ldx #y // Y coordinate (line)
+	jsr $fff0
+	PrintNZ(score_str)
+}
 
 ////////////////////////////////////////////////
 // Update string from score

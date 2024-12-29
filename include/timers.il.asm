@@ -1,6 +1,10 @@
 //////////////////////////////////////////////////////////////////
-// CITYXEN COMMODORE 64 LIBRARY - https://linktr.ee/cityxen
-// IRQ TIMERS INLINE LIBRARY -> put in config.asm
+// CITYXEN COMMODORE 64 LIBRARY
+// 
+// https://github.com/cityxen/Commodore64_Programming
+//
+// https://linktr.ee/cityxen
+//
 
 .macro InitTimersDefault() {
 	lda #60 // 1 sec
