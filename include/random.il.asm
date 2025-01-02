@@ -6,6 +6,11 @@
 // https://linktr.ee/cityxen
 //
 
+//////////////////////////////////////////////////////////////
+// Random number stuff
+
+random_num:             .byte 0
+
 random_init_sid:
     // Set up sid to produce random values
     lda #$FF  // maximum frequency value
@@ -17,9 +22,11 @@ random_init_sid:
 
 lda_random_sid:
     lda $d41b // lda with random number
+    sta random_num
     rts
 
 lda_random_kern:
     jsr $E097
 	lda $8f
+    sta random_num
     rts

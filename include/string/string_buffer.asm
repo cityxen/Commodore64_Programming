@@ -1,0 +1,28 @@
+//////////////////////////////////////////////////////////////////
+// CITYXEN COMMODORE 64 LIBRARY
+// 
+// https://github.com/cityxen/Commodore64_Programming
+//
+// https://linktr.ee/cityxen
+//
+#importonce
+
+//////////////////////////////////////////////////////////////////
+// reusable string buffer data
+strbuf:
+    .fill 256,0
+buf_crsr:
+    .byte 0
+
+//////////////////////////////////////////////////////////////////
+// zero string buffer
+
+zero_strbuf:
+    lda #$00
+    ldx #$00
+!:
+    sta strbuf,x
+    inx
+    bne !-
+    stx buf_crsr
+    rts

@@ -261,7 +261,7 @@ il_it2_reverse:
     lda il_it2_txt_color_val
     sta (zp_ptr_color),y    
     lda (zp_ptr_2),y
-    cmp #$ff
+    cmp #$00
     bne !+
     lda #$20
 !:
@@ -272,6 +272,7 @@ il_it2_reverse:
     bne il_it2_reverse
 
 il_it2_kb_chk: // Check Keyboard loop
+
     clc
     lda $a2
     cmp #$10
@@ -297,12 +298,12 @@ il_it2_kb_not_too_long:
     jsr KERNAL_GETIN
     cmp #$00
     beq il_it2_kb_chk
-    cmp #13
+    cmp #KEY_RETURN
     beq il_it2_kb_chk_end
-    cmp #20
+    cmp #KEY_DELETE
     bne il_it2_kb_chk_not_del
-    ldy #il_it2_cursor
-    cpy #$00
+    ldy il_it2_cursor
+    // cpy #$00
     beq il_it2_kb_chk_del_first_pos
     lda #$a0
     ldy il_it2_cursor
@@ -330,6 +331,8 @@ il_it2_kb_num:
 il_it2_kb_chk_end:
     lda #$00
     sta il_it2_cursor
+    sta (zp_ptr_2),y
+
     ldy #00
 il_it2_rereverse:   // Done editing, re-reverse all the characters
     lda (zp_ptr_screen),y
@@ -339,16 +342,20 @@ il_it2_rereverse:   // Done editing, re-reverse all the characters
     iny
     cpy il_it2_txt_len
     bne il_it2_rereverse
-    ldy #$00
+    clc
+
     ldy #$0f // fill in spaces on end with 0 (start at end and work backward)
 il_it2_trim:
     lda (zp_ptr_2),y
-    cmp #$ff
+    cmp #$00
     beq !+
     cmp #$20
-    bne il_it2_out
+    beq !+
+    cmp #$40
+    beq !+
+    jmp il_it2_out
 !:
-    lda #00
+    lda #$00
     sta (zp_ptr_2),y
     dey
     jmp il_it2_trim

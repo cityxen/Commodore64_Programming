@@ -69,7 +69,7 @@ draw_drive_number:
     jsr KERNAL_CHROUT
     lda drive_number_text+1,x
     jsr KERNAL_CHROUT
-    PrintLF()
+    PrintChr($0d)
     rts
 
 //////////////////////////////////////////////////////////////////
