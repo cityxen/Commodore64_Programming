@@ -90,6 +90,29 @@ load_file:
     jsr KERNAL_LOAD
     rts
 
+open_file_get_one_byte:
+    // Load the file
+    lda filename_length
+    ldx #<filename_buffer
+    ldy #>filename_buffer
+    jsr KERNAL_SETNAM 
+    lda #$0f
+    ldx drive_number
+    ldy #$02
+    jsr KERNAL_SETLFS
+    jsr KERNAL_OPEN
+
+    ldx #$0f      //; filenumber 15
+    jsr $ffc6     //; call chkin (file 15 now used as input)
+    jsr $ffb7     //; call readst (read status byte)
+    jsr $ffcf     //; call chrin (get a byte from file)
+
+    lda #$0f      //; filenumber 15
+    jsr KERNAL_CLOSE
+    jsr $ffcc
+
+    rts
+
 //////////////////////////////////////////////////////////////////
 
 show_drive_status2:
