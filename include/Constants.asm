@@ -201,6 +201,8 @@
 .const SERIAL_CLOCK_DATA_IN = $EEA9	// Read CLOCK IN and DATA IN. Output: Carry = DATA IN; Negative = CLOCK IN; A = CLOCK IN (in bit #7).
 //////////////////////////////////////////////////////////////////
 // KERNAL SUB ROUTINES
+.const KERNAL_STROUT        = $AB1E
+.const KERNAL_DEC_PRINT     = $BDCD
 .const KERNAL_WAIT_KEY      = $F142 // Wait for key
 .const KERNAL_SCINIT        = $FF81 // Input: – Output: – Used registers: A, X, Y
 .const KERNAL_IOINIT        = $FF84 // Input: – Output: – Used registers: A, X
@@ -246,6 +248,7 @@
 //////////////////////////////////////////////////////////////////
 // KEYS (This is not MATRIX codes)
 .const KEY_RETURN       = $0d
+.const LINE_FEED        = $0d
 .const KEY_HOME         = $13
 .const KEY_DELETE       = $14
 .const KEY_SPACE        = $20

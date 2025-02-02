@@ -20,13 +20,6 @@
 !:
 }
 
-.macro KeySubNoMain(key,subroutine) {
-    cmp #key
-    bne !+
-    jsr subroutine
-!:
-}
-
 .macro KeySubWait(key,subroutine) {
     cmp #key
     bne !+
@@ -35,6 +28,17 @@
     jmp main_loop
 !:
 }
+
+.macro KeySubJMP(key,subroutine,loc) {
+    cmp #key
+    bne !+
+    jsr subroutine
+    jmp loc
+!:
+     
+}
+
+
 
 ////////////////////////////////////////////////////////////
 // Keyboard

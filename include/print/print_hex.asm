@@ -61,8 +61,8 @@ print_hex_inline:
 
     lda print_hex_inline_d
     beq !+
-    lda #'$'
-    jsr KERNAL_CHROUT
+    // lda #'$'
+    // jsr KERNAL_CHROUT
 !:
     
 
@@ -83,6 +83,30 @@ print_hex_inline:
     rts
 print_hex_inline_conversion_table:
 .byte $30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$41,$42,$43,$44,$45,$46
+
+
+
+print_hex: // method 2 from kevin
+  pha
+  lsr
+  lsr
+  lsr
+  lsr
+  jsr print_h_digit
+  pla
+  and #$0f
+  jsr print_h_digit
+  rts
+
+print_h_digit:
+  cmp #10
+  bcc !+
+  adc #6
+!:
+  adc #48
+  jsr KERNAL_CHROUT
+  rts
+
 
 /*
 //////////////////////////////////////////////////////////////////

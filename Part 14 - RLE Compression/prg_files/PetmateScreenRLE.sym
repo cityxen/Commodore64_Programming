@@ -1,0 +1,11 @@
+.label drawpetmatescreen=$8a7
+.label rle_decompress=$920
+.label menuflag=$95b
+.label rd2=$95a
+.label instructions=$95d
+.label screen_data_rle=$97e
+.label mainloop=$84b
+.label start=$830
+.label lastkey=$95c
+.label write_instructions=$906
+.label rd1=$930
