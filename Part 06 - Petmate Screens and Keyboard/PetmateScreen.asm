@@ -7,7 +7,7 @@
 #import "../include/Macros.asm"
 #import "../include/DrawPetMateScreen.asm"
 
-*=$2000 "SCREENS"
+*=$09a3 "SCREENS"
 #import "screen1.asm"
 #import "screen2.asm"
 #import "screen3.asm"

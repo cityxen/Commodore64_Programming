@@ -1,0 +1,6 @@
+.label Skip2=$2033
+.label Skip1=$200b
+.label Loop3=$201a
+.label Loop2=$2018
+.label Loop1=$2004
+.label SMC1=$201e

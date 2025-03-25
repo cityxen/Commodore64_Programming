@@ -2,13 +2,13 @@
 .label w_i_loop=$970
 .label w_i_exit=$981
 .label mainloop=$820
-.label last_screen=$3776
+.label last_screen=$2119
 .label instructions=$982
 .label check_2_hit=$875
 .label check_next_key=$96b
-.label screen_002=$27d2
-.label screen_001=$2000
+.label screen_002=$1175
+.label screen_001=$9a3
 .label check_3_hit=$8c7
-.label disk_menu=$2fa4
+.label disk_menu=$1947
 .label check_4_hit=$919
 .label write_instructions=$96e

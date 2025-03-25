@@ -1,0 +1,3 @@
+.label mainloop=$81d {
+}
+.label screen_001=$2000
