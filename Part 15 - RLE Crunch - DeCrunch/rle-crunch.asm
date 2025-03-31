@@ -70,6 +70,8 @@ start:
 
     PrintChr(LINE_FEED)
     Print(string_specify_load_address)
+    lda #53
+    sta string_hex
     InputText2(string_hex,4,19,5,1) 
     jsr hexstr16_to_val
 
@@ -121,11 +123,22 @@ start:
     PrintChr(LINE_FEED)
     Print(ztxtc)
     PrintChr(LINE_FEED)
+    PrintChr(LINE_FEED)
 
+    ldx file_loc_lo
+    lda file_loc_hi
+    jsr KERNAL_DEC_PRINT
+
+    PrintChr(LINE_FEED)
+
+    ldx file_size_lo
+    lda file_size_hi
+    jsr KERNAL_DEC_PRINT
+    PrintChr(LINE_FEED)
 
     RLE_SetSrc(file_loc)
-    RLE_SetDest($c000)
-
+    RLE_SetDest($5000)
+    
     jsr rle_compress
 
     jsr show_stats
@@ -175,12 +188,12 @@ start:
     SetFileLocation(save_addr)
     SetFileLocationEnd(save_addr_end)
 
-    PrintChr($0d)
-    Print(filename)
-    PrintChr($0d)
-    lda drive_number
-    PrintHex()
-    PrintChr($0d)
+    // PrintChr($0d)
+    // Print(filename)
+    // PrintChr($0d)
+    // lda drive_number
+    // PrintHex()
+    // PrintChr($0d)
 
     jsr save_data
 
