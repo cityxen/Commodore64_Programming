@@ -1,0 +1,5 @@
+.label vars=$830
+.label mainloop=$847
+.label end_glitch=$863
+.label init=$830
+.label usend=$814
