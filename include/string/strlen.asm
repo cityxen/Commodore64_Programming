@@ -3,12 +3,12 @@
 str_len:
 .byte 0
 
-.macro StrLen(string) {
-    ldx #$00
+.macro StrLen(instring) {
+    ldx #$ff
     stx str_len
 !:
-    lda string,x
     inx
+    lda instring,x
     bne !-
     stx str_len
 }

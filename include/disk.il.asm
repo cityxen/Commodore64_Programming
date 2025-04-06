@@ -130,7 +130,7 @@ load_file:
     // 1 = load to specified address
     ldy sec_command
     jsr KERNAL_SETLFS
-    lda #01
+    lda #00
     ldx #<file_loc // 00 // Set Load Address
     ldy #>file_loc // 00 // 
     jsr KERNAL_LOAD
@@ -167,12 +167,13 @@ save_file:
     jsr KERNAL_SETLFS
 
     lda #<file_loc // Set Start Address
-    sta zp_tmp_lo
+    sta zp_pointer_lo
     lda #>file_loc
-    sta zp_tmp_hi
+    sta zp_pointer_hi
     ldx #<file_loc_end // Set End Address
     ldy #>file_loc_end
-    lda zp_tmp_lo
+    lda #<zp_pointer_lo
+
 
     jsr KERNAL_SAVE
 
@@ -194,13 +195,13 @@ save_data:
     ldy #$ff
     jsr KERNAL_SETLFS
 
-    lda #<file_loc // Set Start Address
-    sta zp_pointer_lo
-    lda #>file_loc
-    sta zp_pointer_hi
-    ldx #<file_loc_end // Set End Address
-    ldy #>file_loc_end
-    lda #<zp_pointer_lo
+    lda #file_loc_lo     // Low byte of the start address
+    sta $a3
+    lda #file_loc_hi     // High byte of the start address
+    sta $a4
+    ldx #file_loc_end_lo // Low byte of the end address
+    ldy #file_loc_end_hi // High byte of the end address
+    lda #$a3             // Zero page location of the start address
     
     jsr KERNAL_SAVE
 
@@ -410,19 +411,19 @@ dirpause: .byte 0
     sta file_loc_hi
 }
 
-.macro SetFileLocation(file_loc) {
+.macro SetFileLocation(in_file_loc) {
     lda #$01
     sta sec_command
-    lda #<file_loc
+    lda in_file_loc
     sta file_loc_lo
-    lda #>file_loc
+    lda in_file_loc+1
     sta file_loc_hi
 }
 
-.macro SetFileLocationEnd(file_loc_end) {
-    lda #<file_loc_end
+.macro SetFileLocationEnd(in_file_loc_end) {
+    lda in_file_loc_end
     sta file_loc_end_lo
-    lda #>file_loc_end
+    lda in_file_loc_end+1
     sta file_loc_end_hi
 }
 

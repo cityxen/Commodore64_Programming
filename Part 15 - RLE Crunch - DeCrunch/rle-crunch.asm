@@ -77,19 +77,19 @@ start:
 
     PrintChr(LINE_FEED)
     PrintChr(LINE_FEED)
-    Print(ztxts)
+    Print(zstr_src)
     PrintScreenCode2Petscii(string_srcfile)
     PrintChr(LINE_FEED)
 
     PrintChr(LINE_FEED)
-    Print(ztxtd)
+    Print(zstr_dst)
     PrintScreenCode2Petscii(string_destfile)
 
     SetFileName(string_srcfile)
 
     PrintChr(LINE_FEED)
     PrintChr(LINE_FEED)
-    Print(ztxt)
+    Print(zstr_loadin)
 
     SetFileLocation($3000)
     jsr load_file
@@ -99,7 +99,7 @@ start:
     lda file_loc_lo
     PrintHex()
 
-    Print(ztxt2)
+    Print(zstr_minus_dollar)
     ldy #$00
     lda load_address_end_hi
     PrintHex()
@@ -107,7 +107,7 @@ start:
     PrintHex()
 
     PrintChr($0d)
-    Print(ztxtf)
+    Print(zstr_data_size)
     lda file_size_hi
     PrintHex()
     lda file_size_lo
@@ -121,7 +121,7 @@ start:
 
     PrintChr(LINE_FEED)
     PrintChr(LINE_FEED)
-    Print(ztxtc)
+    Print(zstr_crunching)
     PrintChr(LINE_FEED)
     PrintChr(LINE_FEED)
 
@@ -137,16 +137,16 @@ start:
     PrintChr(LINE_FEED)
 
     RLE_SetSrc(file_loc)
-    RLE_SetDest($5000)
+    RLE_SetDest(hex_val)
     
     jsr rle_compress
 
     jsr show_stats
 
-    Print(str_saving_1)
+    Print(zstr_savin_1)
     PrintScreenCode2Petscii(string_destfile)
 
-    Print(str_saving_2)
+    Print(zstr_savin_2)
     lda hex_val+1
     sta save_addr+1
     PrintHex()
@@ -154,19 +154,17 @@ start:
     sta save_addr
     PrintHex()
 
-    lda hex_val+1
     clc
-    adc rle_data_size+1
-    sta save_addr_end+1
-
     lda hex_val
-    clc
     adc rle_data_size
     sta save_addr_end
 
-    clc
+    lda hex_val+1
+    adc rle_data_size+1
+    sta save_addr_end+1
+
     inc save_addr_end
-    bcc !+
+    bne !+
     inc save_addr_end+1
 !:
 
@@ -179,21 +177,24 @@ start:
     sta file_loc_end_lo
     PrintHex()
 
-    StrLen(string_destfile)   
-    StrCpyL(string_destfile,filename,str_len)
-    StrScreenCodeToPetscii(filename,str_len)
+    StrLen(string_destfile)
+
     lda str_len
     sta filename_length
+    
+    PrintChr($0d)
+    lda filename_length
+    PrintHex()
+
+    StrLen(string_destfile)
+
+    StrCpyL(string_destfile,filename,str_len)
+    StrScreenCodeToPetscii(filename,str_len)
+
 
     SetFileLocation(save_addr)
     SetFileLocationEnd(save_addr_end)
 
-    // PrintChr($0d)
-    // Print(filename)
-    // PrintChr($0d)
-    // lda drive_number
-    // PrintHex()
-    // PrintChr($0d)
 
     jsr save_data
 
@@ -220,7 +221,7 @@ show_stats:
   sbc zp_rle_start+1
   sta rle_data_size_hi
 
-  Print(ztxte)
+  Print(zstr_rle_data_size)
 
   lda rle_data_size+1
   PrintHex()
@@ -264,31 +265,31 @@ show_stats:
 
 // *********************************************************
     
-ztxt:
+zstr_loadin:
 .text "LOADING FROM $"
 .byte 0
-str_saving_1:
+zstr_savin_1:
 .text "SAVING ["
 .byte 0
-str_saving_2:
+zstr_savin_2:
 .text "] $"
 .byte 0
-ztxt2:
+zstr_minus_dollar:
 .text "-$"
 .byte 0
-ztxts:
+zstr_src:
 .text "SRC:"
 .byte 0
-ztxtd:
+zstr_dst:
 .text "DST:"
 .byte 0
-ztxtc:
+zstr_crunching:
 .text "CRUNCHING..."
 .byte 0
-ztxte:
+zstr_rle_data_size:
 .text "RLE DATA SIZE:"
 .byte 0
-ztxtf:
+zstr_data_size:
 .text "DATA SIZE:"
 .byte 0
 

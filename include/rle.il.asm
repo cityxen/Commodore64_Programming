@@ -181,8 +181,8 @@ rd2:
 }
 
 .macro RLE_SetDest(num) {
-    lda #<num
+    lda num
     sta zp_dest
-    lda #>num
+    lda num+1
     sta zp_dest+1
 }
