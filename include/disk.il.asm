@@ -64,7 +64,8 @@ file_size_lo:
 .byte 0
 load_loading:
 .encoding "screencode_mixed"
-.text "saving "
+.text "loading "
+.byte 0
 save_saving:
 .encoding "screencode_mixed"
 .text "saving "

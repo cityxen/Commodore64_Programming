@@ -10,6 +10,15 @@
 .const started = $fe
 .const tempLo  = $ff
 
+.macro PrintDecimal() {
+    sta tmp_1
+    lda #<tmp_1
+    sta numLo
+    lda #>tmp_1
+    sta numHi
+    jsr print_decimal    
+}
+
 print_decimal:
     lda #0
     sta started
