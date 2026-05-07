@@ -1,0 +1,13 @@
+;up9600-basic2.prg ==0801==
+0 poke53272,23
+10 fl=fl+1
+20 if fl=1 then load"up9600.c64",8,1
+30 sys 49404 :rem install up9600 driver
+40 if peek(783)and1 then print "can't detect rs232 interface": end
+100 sys 49337
+110 if peek(783)and1 goto 100
+120 b=peek(780) : rem received byte
+125 print chr$(b);
+130 poke 780,b:sys 49373:rem send byte
+140 goto 100
+

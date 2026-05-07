@@ -11,40 +11,58 @@
 
 #define CONFIG_SFXKIT
 
-.macro FixSFXKit(loc) {
-    lda #$3a
-    sta loc+$0128
-    sta loc+$0129
-    sta loc+$012a
+.const SFX_LOC = $c000
+
+.const SFX_VOICE_1 = $02a7
+.const SFX_VOICE_2 = $02a8
+.const SFX_VOICE_3 = $02a9
+
+// BASIC SFX
+.const SFX_GET_READY = $01
+.const SFX_DING      = $02
+.const SFX_WRONG     = $04
+.const SFX_POW       = $05
+.const SFX_MISS      = $06
+.const SFX_GAME_OVER = $07
+
+.macro SetSFXKitAddress() {
+    FixSFXKit()
 }
 
-.const SFK_VOICE_1 = $02a7
-.const SFK_VOICE_2 = $02a8
-.const SFK_VOICE_3 = $02a9
+.macro FixSFXKit() {
+    lda #$3a
+    sta SFX_LOC+$0128
+    sta SFX_LOC+$0129
+    sta SFX_LOC+$012a
+}
 
 .macro sfx_v1_play(sfx) {
     lda #sfx
-    sta SFK_VOICE_1
+    sta SFX_VOICE_1
 }
 
 .macro sfx_v2_play(sfx) {
     lda #sfx
-    sta SFK_VOICE_2
+    sta SFX_VOICE_2
 }
 
 .macro sfx_v3_play(sfx) {
     lda #sfx
-    sta SFK_VOICE_3
+    sta SFX_VOICE_3
 }
 
 sfx_sound_on:
-	jsr $c000
-	rts
+    jsr SFX_LOC
+    rts
 
 sfx_sound_off:
-	jsr $c010
-	rts
+	jsr SFX_LOC+$10
+    rts
 
 sfx_clear:
-	jsr $c1f9
-	rts
+    jsr SFX_LOC+$1f9
+    rts
+
+sfx_irq_hook:
+    jsr SFX_LOC+$28
+    rts

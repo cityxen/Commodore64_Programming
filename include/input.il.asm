@@ -7,6 +7,7 @@
 //
 
 .macro WaitKey() {
+    lda #$00
 !:
     jsr KERNAL_GETIN
     beq !-
@@ -16,7 +17,7 @@
     cmp #key
     bne !+
     jsr subroutine
-    jmp main_loop
+    // jmp main_loop
 !:
 }
 
@@ -25,7 +26,7 @@
     bne !+
     jsr subroutine
     WaitKey()
-    jmp main_loop
+    // jmp main_loop
 !:
 }
 
@@ -37,8 +38,6 @@
 !:
      
 }
-
-
 
 ////////////////////////////////////////////////////////////
 // Keyboard
@@ -68,9 +67,9 @@ j1_button:	.byte 0
 get_j1_m2:
 il_get_j1_m2: // subroutine from https://codebase64.org/doku.php?id=base:joystick_input_handling
 	lda JOYSTICK_PORT_1 // read joystick port 1
-	lsr       // get switch bits
+	lsr          // get switch bits
 	ror j1_up    // switch_history = switch_history/2 + 128*current_switch_state
-	lsr       // update the other switches' history the same way
+	lsr          // update the other switches' history the same way
 	ror j1_down
 	lsr
 	ror j1_left
@@ -92,9 +91,9 @@ j2_button:	.byte 0
 get_j2_m2:
 il_get_j2_m2: // subroutine from https://codebase64.org/doku.php?id=base:joystick_input_handling
 	lda JOYSTICK_PORT_2 // read joystick port 2
-	lsr       // get switch bits
+	lsr          // get switch bits
 	ror j2_up    // switch_history = switch_history/2 + 128*current_switch_state
-	lsr       // update the other switches' history the same way
+	lsr          // update the other switches' history the same way
 	ror j2_down
 	lsr
 	ror j2_left

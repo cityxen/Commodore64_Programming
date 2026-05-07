@@ -6,63 +6,110 @@
 // https://linktr.ee/cityxen
 //
 
+.macro ResetTimers() {
+	.for (var i = 0; i < 16; i++) {
+		ResetTimer(i)
+	!:
+	}
+}
+
+.macro ResetTimer(t) {
+	lda #$00
+	ldx #t
+	sta irq_timer_table,x
+	// ta irq_timer_tr_table,x
+}
+
+.macro SetTimerTo(t) {
+	ldx #t
+	sta irq_timer_to_table,x
+}
+.macro SetTimer(t){
+	ldx #t
+	sta irq_timer_table,x
+}
+
+.macro GetTimer(t){
+	ldx #t
+	lda irq_timer_table,x
+}
+
+.macro SetTimerTr(t){
+	ldx #t
+	sta irq_timer_tr_table,x
+}
+
+.macro GetTimerTr(t){
+	ldx #t
+	lda irq_timer_tr_table,x
+}
+
+.macro IfTimerSub(t,subroutine) {
+	GetTimerTr(t)
+	beq !+
+	lda #$00
+	SetTimer(t)
+	SetTimerTr(t)
+	jsr subroutine
+!:
+}
+
+.macro IfTimerSubJmp(t,subroutine,routine) {
+	GetTimerTr(t)
+	beq !+
+	lda #$00
+	SetTimer(t)
+	SetTimerTr(t)
+	jsr subroutine
+	jmp routine
+!:
+}
+
+.macro IfTimerJmp(t,routine) {
+	GetTimerTr(t)
+	beq !+
+	lda #$00
+	SetTimer(t)
+	SetTimerTr(t)
+	jmp routine
+!:
+}
+
 .macro InitTimersDefault() {
-	lda #60 // 1 sec
-	sta irq_timer1_to
-	lda #120 // 2 sec
-	sta irq_timer2_to
-	lda #180 // 3 sec
-	sta irq_timer3_to
-	lda #240 // 4 sec
-	sta irq_timer4_to
-	lda #300 // 5 sec
-	sta irq_timer5_to
+	lda #60 		// 1 sec
+	SetTimerTo(0)
+	lda #120 		// 2 sec
+	SetTimerTo(1)
+	lda #180 		// 3 sec
+	SetTimerTo(2)
+	lda #240 		// 4 sec
+	SetTimerTo(3)
+	lda #250 		// 5 sec
+	SetTimerTo(4)
 	jsr init_timers
 }
-.macro InitTimers(t1,t2,t3,t4,t5) {
+.macro InitTimers(t1,t2,t3,t4,t5,t6) {
 	lda #t1
-	sta irq_timer1_to
+	SetTimerTo(0)
 	lda #t2
-	sta irq_timer2_to
+	SetTimerTo(1)
 	lda #t3
-	sta irq_timer3_to
+	SetTimerTo(2)
 	lda #t4
-	sta irq_timer4_to
+	SetTimerTo(3)
 	lda #t5
-	sta irq_timer5_to
+	SetTimerTo(4)
+	lda #t6
+	SetTimerTo(5)
 	jsr init_timers
 }
 
-////////////////////////////////
-irq_timer1: 	      .byte 0 // timers
-irq_timer2:           .byte 0
-irq_timer3:           .byte 0
-irq_timer4:           .byte 0
-irq_timer5:           .byte 0
-irq_timer_input:      .byte 0
-irq_timer_jitter:     .byte 0
-irq_timer_sound:      .byte 0
-irq_timer_joystick:   .byte 0
-////////////////////////////////
-irq_timer1_to:        .byte 0 // timeouts
-irq_timer2_to:        .byte 0
-irq_timer3_to:        .byte 0
-irq_timer4_to:        .byte 0
-irq_timer5_to:        .byte 0
-irq_timer_input_to:   .byte 0
-irq_timer_jitter_to:  .byte 0
-irq_timer_sound_to:   .byte 0
-irq_timer_joystick_to:.byte 0
-////////////////////////////////
-irq_timer1_tr:        .byte 0 // triggers
-irq_timer2_tr:        .byte 0
-irq_timer3_tr:        .byte 0
-irq_timer4_tr:        .byte 0
-irq_timer5_tr:        .byte 0
-irq_timer_input_tr:   .byte 0
-irq_timer_jitter_tr:  .byte 0
-irq_timer_sound_tr:   .byte 0
-irq_timer_joystick_tr:.byte 0
+irq_timer_table:
+.byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 // 16 timers
+irq_timer_to_table:
+.byte 10,25,30,60,120,200,50,55,60,65,70,75,100,110,150,20 // timer timeouts
+irq_timer_tr_table:
+.byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 // timer triggers
 
 init_timers:
 	sei
@@ -71,9 +118,9 @@ init_timers:
 	lda #>irq_timers
 	sta $0315
 	cli
+	ResetTimers()
 	rts
 	
-
 irq_timers:
 
 #if CONFIG_MUSIC
@@ -85,192 +132,34 @@ irq_timers:
 !it:
 
 #if CONFIG_SFXKIT
-	jsr $c028 // sound fx kit
+	jsr sfx_irq_hook // sound fx kit
 #endif
 !it:
 
-	inc irq_timer1
-	inc irq_timer2
-	inc irq_timer3
-	inc irq_timer4
-	inc irq_timer5
-	inc irq_timer_input
-	inc irq_timer_jitter
-	inc irq_timer_joystick
-	inc irq_timer_sound
-
-	lda irq_timer1
-	cmp irq_timer1_to
-	bne !+
-	inc irq_timer1_tr
-	lda #$00
-	sta irq_timer1
-
+	ldx #$00
 !:
-	lda irq_timer2
-	cmp irq_timer2_to
-	bne !+
-	inc irq_timer2_tr
-	lda #$00
-	sta irq_timer2
+	lda irq_timer_table,x
+	adc #$01
+	sta irq_timer_table,x
+	inx
+	cpx #16
+	bne !-
 
+.for (var i = 0; i < 16; i++) {
+	GetTimer(i)
+	sta zp_timers
+	lda irq_timer_to_table,x
+	clc
+	cmp zp_timers
+	bcs !+
+	lda #$00
+	SetTimer(i)
+	GetTimerTr(i)
+	sta zp_timers
+	inc zp_timers
+	lda zp_timers
+	SetTimerTr(i)
+	ResetTimer(i)
 !:
-	lda irq_timer3
-	cmp irq_timer3_to
-	bne !+
-	inc irq_timer3_tr
-	lda #$00
-	sta irq_timer3
-
-!:
-	lda irq_timer4
-	cmp irq_timer4_to
-	bne !+
-	inc irq_timer4_tr
-	lda #$00
-	sta irq_timer4
-
-!:
-	lda irq_timer5
-	cmp irq_timer5_to
-	bne !+
-	inc irq_timer5_tr
-	lda #$00
-	sta irq_timer5
-!:
-
-	lda irq_timer_sound
-	cmp irq_timer_sound_to
-	bne !+
-	inc irq_timer_sound_tr
-	lda #$00
-	sta irq_timer_sound
-
-!:	
-
-	lda irq_timer_joystick
-	cmp irq_timer_joystick_to
-	bne !+
-	inc irq_timer_joystick_tr
-	lda #$00
-	sta irq_timer_joystick
-
-!:	
-
-	lda irq_timer_jitter
-	cmp irq_timer_jitter_to
-	bne !+
-	inc irq_timer_jitter_tr
-	lda #$00
-	sta irq_timer_jitter
-
-!:
-
-	lda irq_timer_input
-	cmp irq_timer_input_to
-	bne !+
-	inc irq_timer_input_tr
-	lda #$00
-	sta irq_timer_input
-
-!:
-
+}
 	jmp $ea31
-
-
-pause1:
-	jsr reset_timer1
-!:
-	lda irq_timer1_tr
-	beq !-
-	jsr reset_timer1
-	rts
-
-pause2:
-	jsr reset_timer2
-!:
-	lda irq_timer2_tr
-	beq !-
-	jsr reset_timer2
-	rts
-
-pause3:
-	jsr reset_timer3
-!:
-	lda irq_timer3_tr
-	beq !-
-	jsr reset_timer3
-	rts
-
-pause4:
-	jsr reset_timer4
-!:
-	lda irq_timer4_tr
-	beq !-
-	jsr reset_timer4
-	rts
-
-pause5:
-	jsr reset_timer5
-!:
-	lda irq_timer5_tr
-	beq !-
-	jsr reset_timer5
-	rts
-
-
-reset_timer1:
-	lda #$00
-	sta irq_timer1
-	sta irq_timer1_tr
-	rts
-
-reset_timer2:
-	lda #$00
-	sta irq_timer2
-	sta irq_timer2_tr
-	rts
-
-reset_timer3:
-	lda #$00
-	sta irq_timer3
-	sta irq_timer3_tr
-	rts
-
-reset_timer4:
-	lda #$00
-	sta irq_timer4
-	sta irq_timer4_tr
-	rts
-
-reset_timer5:
-	lda #$00
-	sta irq_timer5
-	sta irq_timer5_tr
-	rts
-
-reset_input_timer:
-	lda #$00
-	sta irq_timer_input
-	sta irq_timer_input_tr
-	sta $C6 // clear buffer
-	jsr KERNAL_GETIN
-	rts
-
-reset_jitter_timer:
-	lda #$00
-	sta irq_timer_jitter_tr
-	sta irq_timer_jitter
-	rts
-
-reset_sound_timer:
-	lda #$00
-	sta irq_timer_sound_tr
-	sta irq_timer_sound
-	rts
-
-reset_joystick_timer:
-	lda #$00
-	sta irq_timer_joystick_tr
-	sta irq_timer_joystick
-	rts

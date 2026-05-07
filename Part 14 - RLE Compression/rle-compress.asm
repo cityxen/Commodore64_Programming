@@ -23,14 +23,17 @@ start:
   rts
 
 generate_rle_data:
+
   lda #<screen_data
   sta zp_src
   lda #>screen_data
   sta zp_src+1
+
   lda #<rle_data
   sta zp_dest
   lda #>rle_data
   sta zp_dest+1
+  
   ldy #0
   lda (zp_src),y
   sta rle_byte
@@ -95,14 +98,18 @@ gr_next:
 ///////////////////////////////////////////////////
 
 show_stats:
+
   lda #<msg1
   ldy #>msg1
   jsr strout
+
   ldx #<rle_data
   lda #>rle_data
   jsr line_print
+
   lda #'-'
   jsr chrout
+
   lda zp_dest
   clc
   adc #3
@@ -113,20 +120,26 @@ show_stats:
   ldx zp_dest
   lda zp_dest+1
   jsr line_print
+
   lda #<msg2
   ldy #>msg2
   jsr strout
+
   lda #>rle_data
   jsr print_hex
+
   lda #<rle_data
   jsr print_hex
+
   lda #29
   jsr chrout
   jsr chrout
+
   lda zp_dest+1
   jsr print_hex
   lda zp_dest
   jsr print_hex
+
   lda #13
   jsr chrout
   rts

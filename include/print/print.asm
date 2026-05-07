@@ -7,8 +7,15 @@
 //
 #importonce
 
+.macro PrintP(lo,hi) {
+    lda #lo
+    sta zp_tmp_lo
+    lda #hi
+    sta zp_tmp_hi
+    jsr print
+}
 .macro Print(string) {
-    lda #< string
+    lda #< string 
     sta zp_tmp_lo
     lda #> string
     sta zp_tmp_hi 
@@ -51,9 +58,80 @@
     jsr KERNAL_CHROUT
 }
 
+.macro PrintLF() {
+    lda #$0d
+    jsr KERNAL_CHROUT
+}
+
+.macro PrintClear() {
+    lda #$93
+    jsr KERNAL_CHROUT
+}
+
+.macro PrintHome() {
+    lda #$13
+    jsr KERNAL_CHROUT
+}
+
+.macro PrintDown(num) {
+    ldx #num
+    lda #$11
+!:
+    jsr KERNAL_CHROUT
+    dex
+    bne !-   
+}
+
+.macro PrintUp(num) {
+    ldx #num
+    lda #$91
+!:
+    jsr KERNAL_CHROUT
+    dex
+    bne !-   
+}
+
+.macro PrintRight(num) {
+    ldx #num
+    lda #$1d
+!:
+    jsr KERNAL_CHROUT
+    dex
+    bne !-   
+}
+
+.macro PrintLeft(num) {
+    ldx #num
+    lda #$9d
+!:
+    jsr KERNAL_CHROUT
+    dex
+    bne !-   
+}
+
+.macro PrintReverseOn() {
+    lda #$12
+    jsr KERNAL_CHROUT
+}
+
+.macro PrintReverseOff() {
+    lda #$92
+    jsr KERNAL_CHROUT
+}
+
+.macro PrintUpperCase() {
+    lda #$8e
+    jsr KERNAL_CHROUT
+}
+
+.macro PrintLowerCase() {
+    lda #$0e
+    jsr KERNAL_CHROUT
+}
+
 .macro PrintStrLF(string) {
     Print(string)
-    PrintChr(13)
+    PrintChr($0d)
 }
 
 print:

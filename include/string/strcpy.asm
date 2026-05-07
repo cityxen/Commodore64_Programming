@@ -19,14 +19,14 @@
 
 .macro StrCpy(str_from,str_to) {
     lda #< str_from
-    sta zp_tmp_lo
+    sta zp_string_lo
     lda #> str_from
-    sta zp_tmp_hi
+    sta zp_string_hi
 
     lda #< str_to
-    sta zp_tmp2_lo
+    sta zp_str2_lo
     lda #> str_to
-    sta zp_tmp2_hi
+    sta zp_str2_hi
 
     jsr string_copy
 }
@@ -35,16 +35,16 @@ string_copy:
     clc
     ldy #$00
 string_copy_1:
-    lda (zp_tmp),y
-    sta (zp_tmp2),y
+    lda (zp_string),y
+    sta (zp_str2),y
     beq string_copy_2
-    inc zp_tmp_lo
+    inc zp_string_lo
     bne !+
-    inc zp_tmp_hi
+    inc zp_string_hi
 !:
-    inc zp_tmp2_lo
+    inc zp_str2_lo
     bne !+
-    inc zp_tmp2_hi
+    inc zp_str2_hi
 !:
     jmp string_copy_1
 string_copy_2:

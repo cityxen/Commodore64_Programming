@@ -14,6 +14,11 @@ tmp_2:  .byte 0
 tmp_3:  .byte 0
 
 ///////////////
+// No Subroutine, just rts
+no_subroutine:
+    rts
+
+///////////////
 // Wait VBL
 
 wait_vbl:

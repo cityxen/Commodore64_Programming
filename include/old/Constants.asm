@@ -1,76 +1,63 @@
-//////////////////////////////////////////////////////////////////
-// CITYXEN COMMODORE 64 LIBRARY
-// 
-// https://github.com/cityxen/Commodore64_Programming
-//
-// https://linktr.ee/cityxen
-//
+//////////////////////////////////////////////////////////////////////////////////////
+// CityXen - https://linktr.ee/cityxen
+//////////////////////////////////////////////////////////////////////////////////////
+// Deadline's C64 Assembly Language Library: Constants
+//////////////////////////////////////////////////////////////////////////////////////
 
-#importonce
-
-//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 // Various Memory Constants
-// Safe zero page locations
-// $4e-$52
-// $57-$5b
-// $5c-$60
-// $92-$96
-// $A3-$B1
-// $F7-$FE
-// 
-.const SECONDARY_ADDRESS    = $b9
-.const DEVICE_NUMBER        = $bA
-.const PNTR                 = $d3
-.const CURSOR_X_POS         = $d3
-.const TBLX                 = $d6
-.const CURSOR_Y_POS         = $d6
-.const CURSOR_COLOR         = $0286
-.const VICSCN               = $0400
-.const SCREEN_RAM           = $0400
-.const COLOR_RAM            = $d800
-.const TEMP_1               = $fb
-.const TEMP_2               = $fc
-.const zp_tmp               = $4e
-.const zp_tmp_lo            = $4e
-.const zp_tmp_hi            = $4f
-.const zp_timers            = $f7
-.const zp_timers_lo         = $f7
-.const zp_timers_hi         = $f8
-.const zp_string            = $fd
-.const zp_string_lo         = $fd
-.const zp_string_hi         = $fe
-.const zp_str2              = $02
-.const zp_str2_lo           = $02
-.const zp_str2_hi           = $03
+.const SECONDARY_ADDRESS    = $B9
+.const DEVICE_NUMBER        = $BA
+.const PNTR                 = $D3
+.const CURSOR_X_POS         = $D3
+.const TBLX                 = $D6
+.const CURSOR_Y_POS         = $D6
+.const CURSOR_COLOR         = $286
+.const VICSCN               = $400
+.const SCREEN_RAM           = $400
+.const COLOR_RAM            = $D800
+// Safe zero page locations $57-$70, $92-$96, $A3-$B1, $F7-$FE
+.const TEMP_1               = $FB
+.const TEMP_2               = $FC
+.const zp_tmp               = $FB
+.const zp_tmp_lo            = $FB
+.const zp_tmp_hi            = $FC
+.const zp_tmp2              = $FD
+.const zp_tmp2_lo           = $FD
+.const zp_tmp2_hi           = $FE
+.const TEMP_5               = $02
+.const TEMP_6               = $c003
 .const TEMP_7               = $04
 .const TEMP_8               = $05
 .const zp_ptr_screen        = $60
 .const zp_ptr_screen_lo     = $60
 .const zp_ptr_screen_hi     = $61
-.const zp_ptr_color         = $a3
-.const zp_ptr_color_lo      = $a3
-.const zp_ptr_color_hi      = $a4
+.const zp_screen            = $60
+.const zp_screen_lo         = $60
+.const zp_screen_hi         = $61
+.const zp_color             = $62
+.const zp_color_lo          = $62
+.const zp_color_hi          = $63
+.const zp_ptr_color         = $62
+.const zp_ptr_color_lo      = $62
+.const zp_ptr_color_hi      = $63
 .const zp_point_tmp         = $59
 .const zp_point_tmp_lo      = $59
 .const zp_point_tmp_hi      = $5a
 .const zp_ptr_2             = $64
 .const zp_ptr_2_lo          = $64
 .const zp_ptr_2_hi          = $65
-.const zp_temp              = $57
-.const zp_temp2             = $57
-.const zp_temp3             = $58
+.const zp_tmp3              = $a3
+.const zp_tmp3_lo           = $a3
+.const zp_tmp3_hi           = $a4
+.const zp_tmp4              = $a5
 .const JOYPORT_TIMER        = $05
-
-
-//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 // VARIOUS STUFF
 .const ZP_DATA_DIRECTION    = $00
 .const ZP_IO_REGISTER       = $01
-
-.const SCREEN_MEM_POINTER   = $288 // 648
 .const KERNAL_STOP_VECTOR   = $0328
-
-//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 // SPRITE POINTERS
 .const SPRITE_POINTERS      = $7F8
 .const SPRITE_0_POINTER     = $7F8
@@ -81,7 +68,7 @@
 .const SPRITE_5_POINTER     = $7FD
 .const SPRITE_6_POINTER     = $7FE
 .const SPRITE_7_POINTER     = $7FF
-//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 // VIC CONSTANTS
 .const SPRITE_LOCATIONS     = $D000
 .const SPRITE_0_X           = $D000 // 53248 SP0X Sprite 0 Horizontal Position
@@ -133,8 +120,11 @@
 .const SPRITE_5_COLOR       = $D02C
 .const SPRITE_6_COLOR       = $D02D
 .const SPRITE_7_COLOR       = $D02E
-
-//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+// IO CONSTANTS
+.const JOYSTICK_PORT_2      = $DC00
+.const JOYSTICK_PORT_1      = $DC01
+//////////////////////////////////////////////////////////////////////////////////////
 // SID CONSTANTS
 .const SID_V1_FREQ_LOW      = $D400 // (54272) frequency voice 1 low byte
 .const SID_V1_FREQ_HIGH     = $D401 // (54273) frequency voice 1 high byte
@@ -165,27 +155,11 @@
 .const PADDLE_Y             = $D41A // (54298) paddle y value (read only)
 .const SID_OSCILLATOR_V3    = $D41B // (54299) oscillator voice 3 (read only)
 .const SID_ENVELOPE_V3      = $D41C // (54300) envelope voice 3 (read only)
-
-
-//////////////////////////////////////////////////////////////////
-// IO CONSTANTS
-.const JOYSTICK_PORT_2      = $DC00
-.const CIA_1                = $DC00
-.const JOYSTICK_PORT_1      = $DC01
-
-.const CIA_2                = $DD00 // 0-1 vic bank (00: bank3, 01: bank2, 10: bank1, 11: bank 0)
-                                    // 7 serial data in
-                                    // 6 serial clock in
-                                    // 5 serial data out
-                                    // 4 serial clock out
-                                    // 3 serial atn out
-                                    // 2 rs232 txd
-                                    
-//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 // User Port Stuff
 .const USER_PORT_DATA       = $DD01 // User Port Data
 .const USER_PORT_DATA_DIR   = $DD03 // User Port Data Direction per bit 1 = talk 0 = listen
-//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 // 1541 Ultimate II Command Interface
 .const UII_CONTROL          = $DF1C // CONTROL REGISTER (WRITE)
 .const UII_STATUS           = $DF1C // STATUS REGISTER (READ) $00
@@ -193,15 +167,15 @@
 .const UII_ID               = $DF1D // IDENTIFICATION REGISTER (READ) $C9
 .const UII_RESPONSE         = $DF1E // RESPONSE DATA REGISTER (READ ONLY)
 .const UII_STATUS_DATA      = $DF1F // STATUS DATA REGISTER
-//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 // KERNAL SUB ROUTINES
 .const KERNAL_PRINT_HEX     = $BDCD // Print 16 bit number to screen LDX lobyte LDA hibyte
-//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 // OTHER KERNAL STUFF
 .const CURSOR_SET           = $E510
 .const KERNAL_CLEAR_SCREEN  = $E544 // Clear Screen
 .const KERNAL_IRQ_ENTRY     = $EA31
-//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 // Serial BUS
 .const SERIAL_TALK          = $ED09 // Send TALK command to serial bus. Input: A = Device number.
 .const SERIAL_LISTEN        = $ED0C // Send LISTEN command to serial bus. Input: A = Device number.
@@ -217,10 +191,8 @@
 .const SERIAL_DATA_OUT_HIGH = $EE97	// Set DATA OUT to high.
 .const SERIAL_DATA_OUT_LOW  = $EEA0	// Set DATA OUT to low.
 .const SERIAL_CLOCK_DATA_IN = $EEA9	// Read CLOCK IN and DATA IN. Output: Carry = DATA IN; Negative = CLOCK IN; A = CLOCK IN (in bit #7).
-//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 // KERNAL SUB ROUTINES
-.const KERNAL_STROUT        = $AB1E
-.const KERNAL_DEC_PRINT     = $BDCD
 .const KERNAL_WAIT_KEY      = $F142 // Wait for key
 .const KERNAL_SCINIT        = $FF81 // Input: – Output: – Used registers: A, X, Y
 .const KERNAL_IOINIT        = $FF84 // Input: – Output: – Used registers: A, X
@@ -263,10 +235,9 @@
 .const KERNAL_SCREEN        = $FFED // Input: – Output: X = Number of columns (40); Y = Number of rows (25) Used registers: X, Y
 .const KERNAL_PLOT          = $FFF0 // Input: Carry: 0 = Restore from input, 1 = Save to output; X = Cursor column (if Carry = 0); Y = Cursor row (if Carry = 0) Output: X = Cursor column (if Carry = 1); Y = Cursor row (if Carry = 1) Used registers: X, Y
 .const KERNAL_IOBASE        = $FFF3 // Input: – Output: X/Y = CIA #1 base address ($DC00) Used registers: X, Y
-//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 // KEYS (This is not MATRIX codes)
 .const KEY_RETURN       = $0d
-.const LINE_FEED        = $0d
 .const KEY_HOME         = $13
 .const KEY_DELETE       = $14
 .const KEY_SPACE        = $20
@@ -276,7 +247,6 @@
 .const KEY_PLUS         = $2b
 .const KEY_COLON        = $3a
 .const KEY_SEMICOLON    = $3b
-.const KEY_0            = $30
 .const KEY_1            = $31
 .const KEY_2            = $32
 .const KEY_3            = $33
@@ -287,7 +257,6 @@
 .const KEY_8            = $38
 .const KEY_9            = $39
 .const KEY_EQUAL        = $3d
-.const KEY_AT           = $40
 .const KEY_A            = $41
 .const KEY_B            = $42
 .const KEY_C            = $43
@@ -327,149 +296,3 @@
 .const KEY_CURSOR_LEFT  = $9d
 .const KEY_CURSOR_RIGHT = $1d
 .const KEY_CLEAR        = $93
-
-.const KEY_BLACK    = 144
-.const KEY_WHITE    = 5
-.const KEY_RED      = 28
-.const KEY_CYAN     = 159
-.const KEY_VIOLET   = 156
-.const KEY_GREEN    = 30
-.const KEY_BLUE     = 31
-.const KEY_YELLOW   = 158
-.const KEY_ORANGE   = 129
-.const KEY_BROWN    = 149
-.const KEY_LT_RED   = 150
-.const KEY_DK_GREY  = 151
-.const KEY_GREY     = 152
-.const KEY_LT_GREEN = 153
-.const KEY_LT_BLUE  = 154
-.const KEY_LT_GREY  = 155
-
-.const J2_NONE = $7f
-.const JOY_NONE = $ff
-
-
-///////////////////////////////////////
-// Floating Point Arithmetic Stuff
-
-
-/*
-
-Float Registers
-
-Two regions in zeropage are allocated for working with floating point numbers:
-
-FAC
-One is called FAC, for Floating Point Accumulator:
-Address 97/$61 is the exponent byte
-Addresses 98–101/$62–$65 hold the four-byte (32 bit) mantissa
-Address 102/$66 stores the sign in its most significant bit;
-    0 for positive, $FF (-1) for negative.
-Address 112/$70 contains rounding bits for intermediate calculations.
-
-ARG
-The other is called ARG, for Floating Point ARGument.
-It's arranged in the same way as FAC, only eight bytes further up:
-Address 105/$69 holds the exponent byte
-Addresses 106–109/$6A–$6D hold the four-byte mantissa
-Address 110/$6E holds the sign in its most significant bit;
-    0 for positive, $FF (-1) for negative.
-
-A float in FAC uses 7 bytes, in ARG needs 6 bytes.
-
-*/
-
-.const FSTR   = $0100 // FP string pointer (minus space at the beginning)
-.const CONUPK = $BA8C // 47756 Fill ARG with number from memory
-                            // (A=Adr.LB, Y=Adr.HB). Then, in preparation
-                            // for subsequent operations, compares the
-                            // signs of ARG and FAC and writes the
-                            // result to address $6F ($00: if signs are the same,
-                            // $80: if signs are different),
-                            // and loads the exponent from FAC to A
-                            // (sets zero flag when FAC equals zero).
-                            // The routines FADDT , FDIVT , FMULTT and FPWRT
-                            // require this preparation.
-.const MOVEF  =	$BBFC // 48124 Copy a number currently in ARG, over into FAC
-.const MOVFA  = $BC0F // 48143 Copy a number currently in FAC, over into ARG
-.const MOVFM  = $BBA2 // 48034 Fetch a number from a RAM location to FAC
-                            // (A=Addr.LB, Y=Addr.HB)
-.const MOVMF  = $BBD4 // 48084 Store the number currently in FAC, to a RAM location.
-                            // Uses X and Y rather than A and Y to point to RAM.
-                            // (X=Addr.LB, Y=Addr.HB)
-
-// Routines for converting between floating point and other formats
-
-.const FACINX = $B1AA // 45482 Convert number in FAC to 16-bit signed integer
-                            // (Y=LB, A=HB).
-.const FIN    = $BCF3 // 48371 Convert number expressed as a zero-terminated
-                            // PETSCII string, to floating point number in FAC.
-                            // Expects string-address in $7a/$7b, and to make
-                            // it work either call CHRGOT ($0079) beforehand
-                            // or load the accumulator with the first char of
-                            // the string and clear the carry-flag manually.
-.const STRVAL = $B7B5 // 47029 Convert numerical PETSCII-string to floating
-                            // point number in FAC. Expects string-address
-                            // in $22/$23 and length of string in accumulator.
-.const FOUT   = $BDDD // 48605 Convert number in FAC to a zero-terminated PETSCII
-                            // string (starting at $0100, address in A, Y too).
-                            // Direct output of FAC also via $AABC/43708 possible.
-.const GIVAYF = $B391 // 45969 Convert 16-bit signed integer to floating point
-                            // number in FAC. Expects lowbyte in Y- and highbyte
-                            // in A-register.
-.const QINT   = $BC9B // 48283 Convert number in FAC to 32-bit signed integer
-                            // ($62-$65, big-endian order).
-
-// Routines for performing calculations
-
-.const FABS   = $BC58 // 48216 Performs the ABS function on the number in FAC
-.const FATN   = $E30E // 58126 Performs the ATN function on the number in FAC
-.const FCOS   = $E264 // 57956 Performs the COS function on the number in FAC
-.const FMUL10 = $BAE2 // 47842 Multiply the number held in FAC by 10.
-.const FDIV10 = $BAFE // 47870 Divide the number held in FAC by 10.
-                            // Ignores the sign of the number in FAC,
-                            // the result is always positive.
-.const FEXP   = $BFED // 49133 Performs the EXP function on the number in FAC
-.const FADD   = $B867 // 47207 Adds the number in FAC with one stored in RAM
-                            // (A=Addr.LB, Y=Addr.HB)
-.const FADDT  = $B86A // 47210 Adds the numbers in FAC and ARG
-.const FDIV   = $BB0F // 47887 Divides a number stored in RAM by the number
-                            // in FAC (A=Addr.LB, Y=Addr.HB)
-.const FDIVT  = $BB12 // 47890 Divides the number in ARG by the number in FAC.
-                            // Sign comparison is not performed and ARISGN
-                            // byte at $6f is not set, which has to be
-                            // accounted for when using this entry point.
-                            // Sign errors may occur otherwise.
-.const FMULT  = $BA28 // 47656 Multiplies a number from RAM and FAC
-                            // (clobbers ARG, A=Addr.LB, Y=Addr.HB)
-.const FPWR   = $BF78 // 49016 Raises a number stored ín RAM to the power
-                            // in FAC (A=Addr.LB, Y=Addr.HB)
-.const FPWRT  = $BF7B // 49019 Raises the number in ARG to the power in FAC
-.const FSUB   = $B850 // 47184 Subtracts the number in FAC from one stored
-                            // in RAM (A=Addr.LB, Y=Addr.HB)
-.const FSUBT  = $B853 // 47187 Subtracts the number in FAC from the number in ARG
-.const F2INT  = $BCCC // 48332 Performs the INT function on the number in FAC
-.const FLOG   = $B9EA // 47594 Performs the LOG function on the number in FAC
-.const NEGOP  = $BFB4 // 49076 Switches sign on the number in FAC, if non-zero
-.const POLY1  = $E043 // 57411 Evaluates a polynomial with odd powers only,
-                            // for the value given in FAC
-.const POLY2  = $E059 // 57433 Evaluates a polynomial with odd and even powers,
-                            // for the value given in FAC
-.const FSIN   = $E26B // 57963 Performs the SIN function on the number in FAC
-.const FSGN   = $BC39 // 48185 Performs the SGN function on the number in FAC
-.const FSQR   = $BF71 // 49009 Performs the SQR function on the number in FAC
-.const FTAN   = $E2B4 // 58036 Performs the TAN function on the number in FAC
-
-// Routines for comparing numbers
-
-.const FCOMP  = $BC5B // 48219 Compares the number in FAC against one stored in RAM
-                      // (A=Addr.LB, Y=Addr.HB). The result of the
-                      // comparison is stored in A: Zero (0) indicates the
-                      // values were equal.
-                      // One (1) indicates FAC was greater than RAM and
-                      // negative one (-1 or $FF) indicates FAC was less than RAM.
-                      // Also sets processor flags (N,Z) depending on whether
-                      // the number in FAC is zero, positive or negative
-.const FSIGN  = $BC2B // 48171 Sets processor flags (N,Z) depending on whether
-                      // the number in FAC is zero, positive or negative
-

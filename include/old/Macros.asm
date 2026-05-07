@@ -1,12 +1,8 @@
-//////////////////////////////////////////////////////////////////
-// CITYXEN COMMODORE 64 LIBRARY
-// 
-// https://github.com/cityxen/Commodore64_Programming
-//
-// https://linktr.ee/cityxen
-//
-
-//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+// CityXen - https://linktr.ee/cityxen
+//////////////////////////////////////////////////////////////////////////////////////
+// Deadline's C64 Assembly Language Library: Macros
+//////////////////////////////////////////////////////////////////////////////////////
 // 
 // Notes:
 //  - Must include Constants.asm before include Macros.asm
@@ -15,9 +11,7 @@
 //      that does these over and over, consider making an actual routine that you
 //      can jsr to.
 // 
-//////////////////////////////////////////////////////////////////
-
-#import "Constants.asm"
+//////////////////////////////////////////////////////////////////////////////////////
 
 .macro ClearScreen(color) {
     lda #$93
@@ -155,39 +149,4 @@ color_lbl:
     bne !check_joy+
     jmp sbr
 !check_joy:
-}
-
-.macro CityXenUpstart(start) {
-    
-// .segment Main [allowOverlap]
-* = $0801 "BASIC Upstart"
-.word usend // link address
-.word 2026  // line num (Current Year)
-.byte $9e   // sys
-.text toIntString(start) // This is start label in main program
-.text ":"
-.byte $80 // end
-.text ":"
-.byte KEY_DELETE,KEY_DELETE,KEY_DELETE,KEY_DELETE
-.byte KEY_DELETE,KEY_DELETE,KEY_DELETE,KEY_DELETE
-.byte KEY_DELETE,KEY_DELETE,KEY_DELETE,KEY_DELETE
-.byte KEY_DELETE
-.text " -=*(CITYXEN)*=-"
-usend:
-.byte 0
-.word 0  // empty link signals the end of the program
-// THIS CODE IS FROM $0801 - $082C
-// The * directive below puts the code to $0830
-// well clear of any allowOverlap
-// If you modify this to change the BASIC Upstart
-// and add more characters keep this in mind
-* = $0830 "vars and lib init"
-
-}
-
-.macro zp_str(x) {
-    lda #<x
-    sta zp_tmp_lo
-    lda #>x
-	sta zp_tmp_hi
 }

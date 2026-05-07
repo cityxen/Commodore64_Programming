@@ -1,0 +1,44 @@
+SwiftDriver (C)2016 Bo Zimmerman
+Please read the LICENSE file for license information
+Please read the NOTICE file for credits information
+
+The purpose of this software is to allow the CMD SwiftLink and compatibles (such as the CMD Turbo232, and various clones) to be used from BASIC or Machine Language on a Commodore 64 via the standard Kernal calls.  In other words, so long as a particular piece of software does not collide in memory with this code (< 512 bytes), and does all of its serial access through the standard kernal calls, it will work with SwiftLink RS232 just like it worked with C= user port RS2332.
+
+As of this writing, error checking is not implemented, and DCD, CTS, and DSR have not been implemented, but it's coming.  Since the kernal requires that you actually poll the CIA chip port address, it obviously won't be identical, which is why I didn't think anyone would expect it out of this, but I'll come up with a duplicate at least.
+
+-------------------
+
+To use this software, it needs to be loaded into memory, and then setup by using:
+SYS 49152
+
+After this, all the normal OPEN, CLOSE, GET, PRINT, etc commands will work as normal.
+
+Here is some example code:
+
+10 IF A=0 THEN A=1:LOAD "SWIFTDRVR49152",8,1
+20 SYS 49152 : REM Turn On The SwiftDriver
+30 OPEN 5,2,0,CHR$(14) : REM Open RS232 at 9600 BAUD
+40 GET#5,A$:IF A$ <> "" THEN PRINT A$;
+50 GET A$:IF A$ <> "" THEN PRINT#5,A$;
+60 GOTO 40
+
+Here are all the baud rates:
+Baud Rate   CHR$() CODE
+50               1
+75               2
+110              3
+135              4
+150              5
+300              6
+600              7
+1200             8
+1800             9
+2400             10
+3600             11
+4800             12
+7200             13
+9600             14
+19200            15
+
+(Turbo232 Speeds Not Yet Supported)
+
