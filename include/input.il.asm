@@ -17,7 +17,6 @@
     cmp #key
     bne !+
     jsr subroutine
-    // jmp main_loop
 !:
 }
 
@@ -26,7 +25,6 @@
     bne !+
     jsr subroutine
     WaitKey()
-    // jmp main_loop
 !:
 }
 
@@ -45,14 +43,15 @@ k_value: 	.byte 0
 
 get_key:
 il_get_key: // subroutine
-	// lda trig_input // timer stuff
-	// beq !gb+
+	GetTimerTr(5) // timer stuff
+	beq !+
 	jsr KERNAL_GETIN
 	bne !+
-	// lda #$ff
+	lda #$ff
 !:
 	sta k_value
-	// jsr reset_input_timer
+    ResetTimerTr(5)
+    ResetTimer(5)
 	rts
 
 ////////////////////////////////////////////////////////////

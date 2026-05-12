@@ -6,12 +6,18 @@
 // https://linktr.ee/cityxen
 //
 
+#importonce 
 //////////////////////////////////////////////////////////////////
 // SOUND FX KIT STUFF
 
 #define CONFIG_SFXKIT
 
 .const SFX_LOC = $c000
+
+.const sfx_sound_on  = SFX_LOC
+.const sfx_sound_off = SFX_LOC+$10
+.const sfx_clear     = SFX_LOC+$1f9
+.const sfx_irq_hook  = SFX_LOC+$28
 
 .const SFX_VOICE_1 = $02a7
 .const SFX_VOICE_2 = $02a8
@@ -50,19 +56,3 @@
     lda #sfx
     sta SFX_VOICE_3
 }
-
-sfx_sound_on:
-    jsr SFX_LOC
-    rts
-
-sfx_sound_off:
-	jsr SFX_LOC+$10
-    rts
-
-sfx_clear:
-    jsr SFX_LOC+$1f9
-    rts
-
-sfx_irq_hook:
-    jsr SFX_LOC+$28
-    rts

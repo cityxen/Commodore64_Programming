@@ -20,10 +20,22 @@
 	// ta irq_timer_tr_table,x
 }
 
+.macro ResetTimerTr(t) {
+	lda #$00
+	ldx #t
+	sta irq_timer_tr_table,x
+}
+
 .macro SetTimerTo(t) {
 	ldx #t
 	sta irq_timer_to_table,x
 }
+
+.macro GetTimerTo(t) {
+	ldx #t
+	lda irq_timer_to_table,x
+}
+
 .macro SetTimer(t){
 	ldx #t
 	sta irq_timer_table,x
@@ -88,7 +100,7 @@
 	SetTimerTo(4)
 	jsr init_timers
 }
-.macro InitTimers(t1,t2,t3,t4,t5,t6) {
+.macro InitTimers(t1,t2,t3,t4,t5,t6,t7) {
 	lda #t1
 	SetTimerTo(0)
 	lda #t2
@@ -101,6 +113,8 @@
 	SetTimerTo(4)
 	lda #t6
 	SetTimerTo(5)
+	lda #t7 // jitter timer
+	SetTimerTo(6)
 	jsr init_timers
 }
 
@@ -163,3 +177,54 @@ irq_timers:
 !:
 }
 	jmp $ea31
+
+pause1:
+	ResetTimer(0)
+!:
+	GetTimerTr(0)
+	beq !-
+	ResetTimer(0)
+	rts
+
+pause2:
+	ResetTimer(1)
+!:
+	GetTimerTr(1)
+	beq !-
+	ResetTimer(1)
+	rts
+
+pause3:
+	ResetTimer(2)
+!:
+	GetTimerTr(2)
+	beq !-
+	ResetTimer(2)
+	rts
+
+pause4:
+	ResetTimer(3)
+!:
+	GetTimerTr(3)
+	beq !-
+	ResetTimer(3)
+	rts
+
+pause5:
+	ResetTimer(4)
+!:
+	GetTimerTr(4)
+	beq !-
+	ResetTimer(4)
+	rts
+
+reset_input_timer:
+	ResetTimer(5)
+	lda #$00
+	SetTimerTr(5)
+	rts
+reset_jitter_timer:
+	ResetTimer(6)
+	lda #$00
+	SetTimerTr(6)
+	rts
