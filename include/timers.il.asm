@@ -6,6 +6,14 @@
 // https://linktr.ee/cityxen
 //
 
+.const TIMER_1 = 0
+.const TIMER_2 = 1
+.const TIMER_3 = 2
+.const TIMER_SCREEN_CHANGE = 3
+.const TIMER_4 = 4
+.const TIMER_INPUT = 5
+.const TIMER_JITTER = 6
+
 .macro ResetTimers() {
 	.for (var i = 0; i < 16; i++) {
 		ResetTimer(i)

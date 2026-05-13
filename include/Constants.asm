@@ -169,9 +169,12 @@
 
 //////////////////////////////////////////////////////////////////
 // IO CONSTANTS
+
 .const JOYSTICK_PORT_2      = $DC00
+.const JOY2_NONE            = $7f
 .const CIA_1                = $DC00
 .const JOYSTICK_PORT_1      = $DC01
+.const JOY1_NONE            = $ff
 
 .const CIA_2                = $DD00 // 0-1 vic bank (00: bank3, 01: bank2, 10: bank1, 11: bank 0)
                                     // 7 serial data in
@@ -344,9 +347,6 @@
 .const KEY_LT_GREEN = 153
 .const KEY_LT_BLUE  = 154
 .const KEY_LT_GREY  = 155
-
-.const J2_NONE = $7f
-.const JOY_NONE = $ff
 
 
 ///////////////////////////////////////
