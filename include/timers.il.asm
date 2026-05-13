@@ -21,6 +21,12 @@
 	}
 }
 
+.macro FullReset(t) {
+	lda #$00
+	SetTimer(TIMER_1)
+	SetTimerTr(TIMER_1)
+}
+
 .macro ResetTimer(t) {
 	lda #$00
 	ldx #t
