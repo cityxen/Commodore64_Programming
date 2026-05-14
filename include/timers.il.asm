@@ -135,7 +135,7 @@
 irq_timer_table:
 .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 // 16 timers
 irq_timer_to_table:
-.byte 10,25,30,60,120,200,50,55,60,65,70,75,100,110,150,20 // timer timeouts
+.byte 10,25,30,60,120,200,50,55,60,65,70,75,255,15,150,20 // timer timeouts
 irq_timer_tr_table:
 .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 // timer triggers
 
