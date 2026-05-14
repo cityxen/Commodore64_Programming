@@ -5,7 +5,7 @@
 //
 // https://linktr.ee/cityxen
 //
-
+/*
 .macro InitializeSpritesAlt(sprite_table) {
     ////////////////////////////////////////////////////////////
     // sprite_initial_visible:
@@ -426,3 +426,4 @@ animate_sprite_done:
 end_animate_sprites:
 updateexit:
 }
+*/

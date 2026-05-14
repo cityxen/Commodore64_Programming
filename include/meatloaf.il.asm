@@ -10,9 +10,9 @@ ml_detect_byte:  .byte 0
 ml_detect_check: .byte 0
 ml_detected:     .byte 0
 ml_enabled:      .byte 0
-ml_detected_text: .text "meatloaf detected:"
+ml_detected_text: .text "meatloaf found:"
 .byte 0
-ml_enabled_text:  .text "meatloaf  enabled:"
+ml_enabled_text:  .text "meatloaf enabled:"
 .byte 0
 ml_detect_meatloaf:
         lda #$00
