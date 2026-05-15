@@ -23,8 +23,8 @@
 
 .macro FullReset(t) {
 	lda #$00
-	SetTimer(TIMER_1)
-	SetTimerTr(TIMER_1)
+	SetTimer(t)
+	SetTimerTr(t)
 }
 
 .macro ResetTimer(t) {
